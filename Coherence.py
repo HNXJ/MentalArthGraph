@@ -114,19 +114,21 @@ def coherence(Temps, signals, method="Pearson", channels=None, Overlap=None,
     return cor            
 
 
-def heatmap(img, chs, signal_headers, mode="Normal", name="h"):
+def heatmap(img, chs, signal_headers, mode="Normal", name="h", tit="", save=False):
     
     fig, ax = plt.subplots(figsize=(31, 21))
     im = ax.imshow(img)
     ax.set_yticklabels([])
     ax.set_xticklabels([])
+    ax.set_title(tit)
     cax = fig.add_axes([0.26, 0.91, 0.5, 0.05])
     fig.colorbar(im, cax=cax, orientation='horizontal')
     for i in range(len(chs)):
         ax.text(-1.5, i, signal_headers[chs[i]]['label'])
         ax.text(i-0.5, -0.7, signal_headers[chs[i]]['label'])
-    if mode == "save":
+    if save == True:
         fig.savefig(name + ".png")
+        plt.close()
     else:
         fig.show()   
     return

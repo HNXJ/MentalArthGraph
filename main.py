@@ -1,6 +1,6 @@
 # import scipy
+from scipy import signal, stats
 import numpy as np
-# from scipy import signal
 # from matplotlib import pyplot as plt
 import Coherence
 import os
@@ -120,6 +120,9 @@ def visualize_graph_modified(subject_set, chs=None, mode="Pearson", ql=None):
     chs1 = []
     for i in range(20):
         chs1.append(i)
+        
+    if chs == None:
+        chs = chs1
   
     fname = mode + "_" + str(subject_set.id) + "_" + str(subject_set.cor.shape[2]) + "_f" + "_bandpass[" + str(subject_set.cf1) + "_" + str(subject_set.cf2) + "]Hz"
     try:
@@ -241,7 +244,7 @@ def visualize_mean_graph(ds, chs0=None, split_type="quality", mode=None):
     visualize_graph_modified(ds1, chs=chs0, mode=mode, ql=lb2)
 
 
-def run1(ds):
+def run_graph_visualize(ds, mode=None, split=None):
     
     chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
     chs1 = []
@@ -250,25 +253,11 @@ def run1(ds):
     
     chs0 = chs1
     print("Stablishing sets, ")
-    ds_pearson = ds
-    ds_spectral = ds
+    visualize_mean_graph(ds, chs0, split_type=split, mode=mode)
+    return
+
     
-    for i in range(36):
-        ds_pearson[i].set_cor(frames=4, mode="Pearson", chs=chs0, order=4, cf1=15, cf2=25, sr=500)
-    
-    for i in range(36):
-        ds_spectral[i].set_cor(frames=4, mode="Spectral", chs=chs0, order=4, cf1=15, cf2=25, sr=500)
-    
-    visualize_mean_graph(ds_spectral, chs0, split_type="count-quality", mode="Spectral")
-    visualize_mean_graph(ds_pearson, chs0, split_type="count-quality", mode="Pearson")
-    # visualize_mean_graph(ds_spectral, chs2, mode="Spectral")
-    # visualize_mean_graph(ds_pearson, chs2, mode="Pearson")
-    
-    # visualize_graph(16, 18, frames=5, chs=chs0, mode="Pearson")
-    # Coherence.animate(folderpath="")
-    
-    
-def run2(ds):
+def run_heatmap_visualize(ds, mode=None, split=None, f=0):
     
     chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
     chs1 = []
@@ -276,18 +265,11 @@ def run2(ds):
         chs1.append(i)
     
     chs0 = chs1
-    # ds = load_dataset(cnt=36)
-    # run1(ds)
-    for i in range(1):
-        ds[i].set_cor(frames=6, mode="Spectral", chs=chs0, order=4, cf1=15, cf2=25, sr=500)
-    
-    Coherence.heatmap(ds[0].cor[:, :, 4], chs0, ds[0].signal_headers)
-    # print(ds[0].cor)
-    # for i in range(36):
-    #     print(ds_pearson[i].subtractions, ds_pearson[i].quality)    
+    Coherence.heatmap(ds[0].cor[:, :, f], chs0, ds[0].signal_headers)
+    return
 
 
-def datasets_preparation(frames=10, cnt=36):
+def datasets_preparation(frames=10, cnt=36, order=4, cf1=15, cf2=25):
     
     chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
     chs1 = []
@@ -302,18 +284,160 @@ def datasets_preparation(frames=10, cnt=36):
     ds_spectral = ds
     
     for i in range(cnt):
-        ds_pearson[i].set_cor(frames=frames, mode="Pearson", chs=chs0, order=4, cf1=15, cf2=25, sr=500)
+        ds_pearson[i].set_cor(frames=frames, mode="Pearson", chs=chs0, order=order,
+                              cf1=cf1, cf2=cf2, sr=500)
+        if i%5 == 0:
+            print("Preprocessing subject no." + str(i))
     
     print("Pearson done.")
     for i in range(cnt):
-        ds_spectral[i].set_cor(frames=frames, mode="Spectral", chs=chs0, order=4, cf1=15, cf2=25, sr=500)
+        ds_spectral[i].set_cor(frames=frames, mode="Spectral", chs=chs0, order=order,
+                               cf1=cf1, cf2=cf2, sr=500)
+        if i%5 == 0:
+            print("Preprocessing subject no." + str(i))
     
     print("Spectral done.")
     return ds, ds_pearson, ds_spectral
 
 
-ds, ds_pearson, ds_spectral = datasets_preparation(frames=10)
-ds_p0, ds_p1 = mean_graph_count_quality(ds_pearson, id1="0", id2="1")
-ds_s0, ds_s1 = mean_graph_count_quality(ds_spectral, id1="0", id2="1")
+def split_quality(ds, id1="0", id2="1"):
+    
+    ds_1 = []
+    ds_2 = []
+    
+    for q in range(35):
 
-# ds_q0 = np.zeros([20, 20, 10, ])    
+        if ds[q].quality == "0":
+            
+            ds_1.append(ds[q])
+            
+        else:
+        
+            ds_2.append(ds[q])
+            
+    return ds_1, ds_2
+
+    
+def split_count_quality(ds, id1="0", id2="1"):
+    
+    ds_1 = []
+    ds_2 = []
+    
+    for q in range(35):
+
+        if ds[q].quality == "0" and float(ds[q].subtractions) < 10.0:
+            
+            ds_1.append(ds[q])
+            
+        elif float(ds[q].subtractions) > 22.5:
+        
+            ds_2.append(ds[q])
+                
+    return ds_1, ds_2
+
+
+def ttest_prep(x, y):
+    
+    n = x.shape[0]*x.shape[1]
+    m = y.shape[0]*y.shape[1]
+    x = np.reshape(x, [n, -1])
+    y = np.reshape(y, [m, -1])
+    x1 = x
+    y1 = y
+    
+    for i in range(m-1):
+        x1 = np.concatenate([x1, x], 0)
+    for i in range(n-1):
+        y1 = np.concatenate([y1, y], 0)
+        
+    return x1, y1
+    
+def ttest_heatmap(ds1=None, ds2=None, fs=0, ff=0):
+    
+    x = np.zeros([20, 20, ds1[0].cor.shape[2], len(ds1)])
+    y = np.zeros([20, 20, ds2[0].cor.shape[2], len(ds2)])
+    img_s = np.zeros([20, 20])
+    img_p = np.zeros([20, 20])
+    
+    for i in range(len(ds1)):
+        x[:, :, :, i] = ds1[i].cor
+    for i in range(len(ds2)):
+        y[:, :, :, i] = ds2[i].cor
+    
+    for i in range(20):
+        for j in range(20):
+            if not i == j:
+                x1, y1 = ttest_prep(x[i, j, fs:ff, :], y[i, j, fs:ff, :])
+                img_s[i, j], img_p[i, j] = stats.ttest_ind(x1, y1, equal_var=False)
+            
+    return img_s, img_p
+
+
+def ttest_heatmap_multiframe(ds1=None, ds2=None, fs=0, ff=2):
+    
+    x = np.zeros([20, 20, ds1[0].cor.shape[2], len(ds1)])
+    y = np.zeros([20, 20, ds2[0].cor.shape[2], len(ds2)])
+    img_s = np.zeros([20, 20])
+    img_p = np.zeros([20, 20])
+    
+    for i in range(len(ds1)):
+        x[:, :, :, i] = ds1[i].cor
+    for i in range(len(ds2)):
+        y[:, :, :, i] = ds2[i].cor
+    
+    for i in range(20):
+        for j in range(20):
+            if not i == j:
+                x1, y1 = ttest_prep(x[i, j, fs:ff, :], y[i, j, fs:ff, :])
+                img_s[i, j], img_p[i, j] = stats.ttest_rel(x1, y1, equal_var=False)
+            
+    return img_s, img_p
+    
+
+def visualize_ttest_heatmap(ds1, ds2, fs=0, ff=0 , mode="", save=False):
+    
+    chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
+    chs1 = []
+    for i in range(20): 
+        chs1.append(i)
+    
+    chs0 = chs1
+    s, p = ttest_heatmap(ds1, ds2, fs, ff)
+    
+    try: 
+        os.mkdir("TTest_" + mode)
+    except:
+        pass
+    
+    Coherence.heatmap(s, chs0, ds[0].signal_headers,
+                      name="TTest_" + mode + "/stat_fs_" + str(fs) + "_ff_" + str(ff),
+                      tit="stat", save=save)
+    Coherence.heatmap(p, chs0, ds[0].signal_headers,
+                      name="TTest_" + mode + "/pval_fs_" + str(fs) + "_ff_" + str(ff),
+                      tit="pval", save=save)
+    return s, p
+
+chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
+chs1 = []
+for i in range(20): 
+    chs1.append(i)
+
+chs0 = chs1
+
+ds, ds_pearson, ds_spectral = datasets_preparation(frames=30, order=2, cf1=24, cf2=32)
+ds_p0, ds_p1 = split_count_quality(ds_pearson, id1="0", id2="1")
+ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
+
+# run_graph_visualize(ds_spectral, mode="Spectral", split="quality")
+# run_graph_visualize(ds_pearson, mode="Pearson", split="count-quality")
+# run_heatmap_visualize(ds_p0, mode="Spectral", split="quality", f=3)
+# run_heatmap_visualize(ds_p1, mode="Pearson", split="quality", f=3)
+# visualize_graph_modified(ds_pearson[4], chs=None, mode="Pearson", ql="")
+
+# for f in range(2):
+#     visualize_ttest_heatmap(ds_s0, ds_s1, fs=f*10+5, ff=(f+1)*10 + 5, mode="Spectral", save=True)  
+# for f in range(2):
+#     visualize_ttest_heatmap(ds_p0, ds_p1, fs=f*10+5, ff=(f+1)*10 + 5, mode="Pearson", save=True)  
+    
+# visualize_ttest_heatmap(ds_s0, ds_s1, fs=5, ff=25, mode="Spectral", save=False)
+# visualize_ttest_heatmap(ds_s0, ds_s1, fs=7, ff=25, mode="Spectral", save=False)
