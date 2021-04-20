@@ -2,7 +2,9 @@ import csv
 import glob
 import numpy as np
 from PIL import Image
+
 from scipy import signal
+from sklearn import metrics
 from pyedflib import highlevel
 from matplotlib import pyplot as plt
 
@@ -32,11 +34,11 @@ def save_image(npdata, outfilename) :
     return
 
 
-def load_file(k=0):
+def load_file(k=0, foldername="EEGMA/"):
         
     fields = [] 
     rows = []       
-    with open("EEGMA/subject-info.csv", 'r') as csvfile:
+    with open(foldername + "subject-info.csv", 'r') as csvfile:
         csvreader = csv.reader(csvfile) 
         fields = next(csvreader)  
         for row in csvreader: 
@@ -46,9 +48,9 @@ def load_file(k=0):
     #
     
     try:
-        signals, signal_headers, header = highlevel.read_edf('EEGMA/Subject' + str(k) + '_2.edf')
+        signals, signal_headers, header = highlevel.read_edf(foldername + "Subject" + str(k) + "_2.edf")
     except:
-        signals, signal_headers, header = highlevel.read_edf('EEGMA/Subject0' + str(k) + '_2.edf')
+        signals, signal_headers, header = highlevel.read_edf(foldername + "Subject0" + str(k) + "_2.edf")
     print("\n", fields[4], " | ", rows[k][0], " | ", rows[k][4])
     # print("Fs:", signal_headers[0]['sample_rate']) # prints 256
     # print("shape: ", signals.shape)
@@ -114,6 +116,59 @@ def coherence(Temps, signals, method="Pearson", channels=None, Overlap=None,
     return cor            
 
 
+def mutual_info(Temps, signals, method="Temporal", channels=None, Overlap=None, 
+              filter_order=4, lbf=20, ubf=32, sampling_rate=500):
+    
+    # chs = [0, 1, 2, 3, 4, 5, 8, 9, 16, 17, 18, 19]        
+    chs = [] 
+    if channels == None:
+        for i in range(21):
+            chs.append(i)
+    else:
+        chs = channels
+    
+    Interval_size = int(signals.shape[1]/Temps)
+    cor = np.zeros([len(chs), len(chs), Temps])
+        
+    nyq = sampling_rate/2
+    b, a = signal.butter(filter_order, [lbf/nyq, ubf/nyq], btype='band')
+    for k in range(21):
+        signals[k, :] = signal.lfilter(b, a, signals[k, :])
+    
+    for i in range(len(chs)): #signals.shape[0]):
+        for j in range(len(chs)):
+            for l in range(Temps):
+                ie = chs[i]
+                je = chs[j]
+                h = signals[ie, l*Interval_size:(l+1)*Interval_size]
+                x = signals[je, l*Interval_size:(l+1)*Interval_size]
+                
+                if method == "Phase":
+                    xs = np.fft.fft(x)
+                    hs = np.fft.fft(h)
+                    ys = metrics.mutual_info_score(hs, xs)                    
+                    p = np.real(ys)**2 / (np.imag(ys)**2 + np.real(ys)**2) * (np.pi/2)
+                    # print(np.real(ys))
+                    if np.real(ys) > 0:    
+                        cor[i][j][l] = p
+                    else:
+                        cor[i][j][l] = np.pi + p
+                
+                elif method == "Spectral":
+                    xs = np.abs(np.fft.fft(x))
+                    hs = np.abs(np.fft.fft(h))
+                    ys = metrics.mutual_info_score(hs - np.mean(hs), xs - np.mean(xs))                    
+                    sigms = 1 # np.std(hs)*np.std(xs)*hs.shape[0]
+                    cor[i][j][l] = ys/sigms
+                
+                else: # Temporal
+                    y = metrics.mutual_info_score(h - np.mean(h), x - np.mean(x))
+                    sigm = 1 # np.std(h)*np.std(x)*h.shape[0]
+                    cor[i][j][l] = y/sigm
+        
+    return cor            
+
+
 def heatmap(img, chs, signal_headers, mode="Normal", name="h", tit="", save=False):
     
     fig, ax = plt.subplots(figsize=(31, 21))
@@ -137,7 +192,7 @@ def heatmap(img, chs, signal_headers, mode="Normal", name="h", tit="", save=Fals
 def graphmap(cor, chs, signal_headers, sensor_locs, mode=None, name="0",
              fname="Graphs/", titl=None):
     
-    img = load_image("10-20.jpg")
+    img = load_image("EEGMA/10-20.jpg")
     fig, ax = plt.subplots(figsize=(21, 23))
     
     w = img.shape[0]
