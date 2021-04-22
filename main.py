@@ -11,14 +11,14 @@ import pickle
 def save_list(l, filename="List0.txt"):
         
     with open(filename, "wb") as f_temp:
-        pickle.dump(l, fp)
+        pickle.dump(l, f_temp)
     return
 
 
 def load_list(filename="List0.txt"):
     
     with open(filename, "rb") as f_temp:
-        l = pickle.load(fp)
+        l = pickle.load(f_temp)
     
     return l
 
@@ -35,48 +35,50 @@ chs0 = chs1
 
 
 
-# Data loading and preprocessing: coherence
-ds, ds_pearson, ds_spectral = datasets_preparation(frames=10, order=4, cf1=15,
-                                                    cf2=25, mth="coherence")
-ds_p0, ds_p1 = split_count_quality(ds_pearson, id1="0", id2="1")
-ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
+# # Data loading and preprocessing: coherence
+# ds, ds_pearson, ds_spectral = datasets_preparation(frames=10, order=4, cf1=15,
+#                                                     cf2=25, mth="coherence")
+# ds_p0, ds_p1 = split_count_quality(ds_pearson, id1="0", id2="1")
+# ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
 
 
 
 
-# Data loading and preprocessing mutual information
-chs0 = chs1
-ds, ds_temp, ds_spect = datasets_preparation(frames=10, order=4, cf1=15,
-                                                    cf2=25, mth="mutual_info")
-ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
-ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
+# # Data loading and preprocessing mutual information
+# chs0 = chs1
+# ds, ds_temp, ds_spect = datasets_preparation(frames=10, order=4, cf1=15,
+#                                                     cf2=25, mth="mutual_info")
+# ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
+# ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
 
 
 
-# Save lists for next time!
-save_list(ds_p0, "p0_10f_[15-25]")
-save_list(ds_p1, "p1_10f_[15-25]")
-save_list(ds_s0, "s0_10f_[15-25]")
-save_list(ds_s1, "s1_10f_[15-25]")
+# # Save lists for next time :!
+# save_list(ds_p0, "p0_10f_[15-25].txt")
+# save_list(ds_p1, "p1_10f_[15-25].txt")
+# save_list(ds_s0, "s0_10f_[15-25].txt")
+# save_list(ds_s1, "s1_10f_[15-25].txt")
 
-# Save lists for next time :D
-save_list(ds_t0, "t0_10f_[15-25]")
-save_list(ds_t1, "p1_10f_[15-25]")
-save_list(ds_f0, "f0_10f_[15-25]")
-save_list(ds_f1, "p1_10f_[15-25]")
+# # Save lists for next time :D
+# save_list(ds_t0, "t0_10f_[15-25].txt")
+# save_list(ds_t1, "p1_10f_[15-25].txt")
+# save_list(ds_f0, "f0_10f_[15-25].txt")
+# save_list(ds_f1, "f1_10f_[15-25].txt")
 
 
 
 
 # Load later:
-ds_f0 = load_list("f0_10f_[15-25]")
-ds_f1 = load_list("f1_10f_[15-25]")
+ds_f0 = load_list("f0_10f_[15-25].txt")
+ds_f1 = load_list("f1_10f_[15-25].txt")
+ds_s0 = load_list("s0_10f_[15-25].txt")
+ds_s1 = load_list("s1_10f_[15-25].txt")
 
 
-## TTest heatmaps (p-values and stats)
+# # TTest heatmaps (p-values and stats)
 # for f in range(9):
-#     s, p = visualize_ttest_heatmap(ds_f0, ds_f1, fs=f, ff=(f+1), mode="MI_Spect9Frame_32_38", save=True) 
+#     s, p = visualize_ttest_heatmap(ds_f0, ds_f1, fs=f, ff=(f+1), mode="MI_Spect9Frame_15_25", save=True) 
 #     try:
 #         st += s
 #         pt += p
@@ -94,10 +96,10 @@ ds_f1 = load_list("f1_10f_[15-25]")
 #         pt = p
 
 ## Overall (cumulative results)
-# Coherence.heatmap(st, chs0, ds[0].signal_headers, mode="Normal", name="h", tit="", save=False)
+# Coherence.heatmap(pt, chs0, ds_f0[0].signal_headers, mode="Normal", name="h", tit="", save=False)
 # Coherence.heatmap(pt, chs0, ds[0].signal_headers, mode="Normal", name="h", tit="", save=False)
 
-
+x
 
 
 ## TSNE clustering
@@ -106,7 +108,9 @@ ds_f1 = load_list("f1_10f_[15-25]")
 
 ## Deep classification parts (colab recommended for this part)
 # TTest data extract
-# x, y = get_dataset_cor2(ds_s0, ds_s1, 4)
+x, y = get_dataset_cor2(ds_s0, ds_s1, 10)
+k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=2000)
+k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=2000)
 # in_shape = [1600]
 
 # dataset2 = SampleDataset()
