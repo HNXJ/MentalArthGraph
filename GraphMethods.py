@@ -486,20 +486,20 @@ def get_dataset_cor2(ds1=None, ds2=None, f=1):
     
     # x = np.zeros([20, 20, ds1[0].cor.shape[2], len(ds1)])
     # y = np.zeros([20, 20, ds2[0].cor.shape[2], len(ds2)])
-    x = np.zeros([(len(ds1) + len(ds2))*f, 3 * 20 * int(ds1[0].cor.shape[2] / f)])
+    x = np.zeros([(len(ds1) + len(ds2))*f, 20 * 20])
     y = np.zeros([(len(ds1) + len(ds2))*f, 2])
     
     cnt = 0
     for i in range(len(ds2)):
         for j in range(f):
-            x[cnt*f + j, :] = np.reshape(ds2[i].cor[4:7, :, j], [1, -1])
+            x[cnt*f + j, :] = np.reshape(ds2[i].cor[:, :, j], [1, -1])
             y[cnt*f + j, 0] = 1
             # y[cnt, 1] = 0
         cnt += 1
         
     for i in range(len(ds1)):
         for j in range(f):
-            x[cnt*f + j, :] = np.reshape(ds2[i].cor[4:7, :, j], [1, -1])
+            x[cnt*f + j, :] = np.reshape(ds2[i].cor[:, :, j], [1, -1])
             y[cnt*f + j, 1] = 1
             # y[cnt, 1] = 0
         cnt += 1
@@ -512,18 +512,18 @@ def get_dataset_cor1(ds1=None, ds2=None, f=1):
     
     # x = np.zeros([20, 20, ds1[0].cor.shape[2], len(ds1)])
     # y = np.zeros([20, 20, ds2[0].cor.shape[2], len(ds2)])
-    x = np.zeros([(len(ds1) + len(ds2))*f, 3 * 20 ])
+    x = np.zeros([(len(ds1) + len(ds2))*f, 20 * 20 ])
     y = np.zeros([(len(ds1) + len(ds2))*f, 2])
     
     cnt = 0
     for i in range(len(ds1)):
-        x[cnt*f, :] = np.reshape(ds1[i].cor[4:7, :, 3], [1, -1])
+        x[cnt*f, :] = np.reshape(ds1[i].cor[:, :, :], [1, -1])
         y[cnt*f, 0] = 1
         # y[cnt, 1] = 0
         cnt += 1
         
     for i in range(len(ds2)):
-        x[cnt*f, :] = np.reshape(ds2[i].cor[4:7, :, 3], [1, -1])
+        x[cnt*f, :] = np.reshape(ds2[i].cor[:, :, :], [1, -1])
         y[cnt*f, 1] = 1
         # y[cnt, 1] = 0
         cnt += 1
