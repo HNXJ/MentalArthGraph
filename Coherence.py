@@ -43,7 +43,6 @@ def load_file(k=0, foldername="EEGMA/"):
         fields = next(csvreader)  
         for row in csvreader: 
             rows.append(row)  
-        # print("Total no. of rows: %d"%(csvreader.line_num)) 
         
     #
     
@@ -52,14 +51,8 @@ def load_file(k=0, foldername="EEGMA/"):
     except:
         signals, signal_headers, header = highlevel.read_edf(foldername + "Subject0" + str(k) + "_2.edf")
     print("\n", fields[4], " | ", rows[k][0], " | ", rows[k][4])
-    # print("Fs:", signal_headers[0]['sample_rate']) # prints 256
-    # print("shape: ", signals.shape)
-    # print("Number of channels: ", len(signal_headers))
-    # print(header)
     print("######## --- > ")
     
-    # for j in range(len(signal_headers)):
-    #     print(signal_headers[j]['label'], j)
     return signals, signal_headers, header, fields, rows
 
 

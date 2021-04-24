@@ -3,6 +3,11 @@ from sklearn.manifold import TSNE
 from matplotlib import pyplot as plt
 
 
+def pca_cluster(X=None, Y=None, components=2, visualize=True):
+    pass # TODO PCA
+    return
+    
+
 def tsne_cluster(X=None, Y=None, components=2, visualize=True, iterations=100):
     
     tsne = TSNE(n_components=components, n_iter=iterations)
@@ -49,3 +54,4 @@ def tsne_3d_plot(X=None, Y=None):
     
     fig.show()
     return
+

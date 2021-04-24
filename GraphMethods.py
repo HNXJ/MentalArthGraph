@@ -539,19 +539,17 @@ def get_dataset_cor3(ds1=None, ds2=None):
     
     cnt = 0
     for i in range(len(ds2)):
-        cor_temp = np.mean(ds2[i].cor[:, :, :], 3)
+        cor_temp = np.mean(ds2[i].cor[:, :, :], 2)
         x[cnt*f + j, :] = np.reshape(cor_temp, [1, -1])
         y[cnt*f + j, 0] = 1
-        # y[cnt, 1] = 0
         cnt += 1
         
     for i in range(len(ds1)):
-        cor_temp = np.mean(ds1[i].cor[:, :, :], 3)
+        cor_temp = np.mean(ds1[i].cor[:, :, :], 2)
         x[cnt, :] = np.reshape(cor_temp, [1, -1])
         y[cnt, 1] = 1
         cnt += 1
 
-    
     return x, y
 
 
