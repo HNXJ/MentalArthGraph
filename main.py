@@ -7,6 +7,8 @@ from Action import *
 import numpy as np
 
 
+
+
 # Channel initialization
 chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
 chs1 = []
@@ -80,16 +82,6 @@ frame = 30
 
 
 
-## Animator
-# make_gif(path="Graphs/Spectral_Bad_count-quality_12_f_bandpass[60_120]Hz/",
-#          fname="Animate/sb12_60_120.gif", duration=0.17)
-# make_gif(path="Graphs/Spectral_Good_count-quality_12_f_bandpass[60_120]Hz/",
-#          fname="Animate/sg12_60_120.gif", duration=0.17)
-# make_gif(path="Graphs/Spectral_Good_count-quality_10_f_bandpass[32_38]Hz/",
-#          fname="Animate/sg10_32_38.gif", duration=0.17)
-
-
-
 ## TSNE clustering
 
 # TTest data extract
@@ -101,6 +93,8 @@ frame = 30
 # k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000)
 # k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000)
 # in_shape = [1600]
+
+
 
 
 ## Deep classification parts (colab recommended for this part)
@@ -120,3 +114,11 @@ frame = 30
 run_graph_visualize(ds_s0, mode="Spectral", split="count-quality")
 run_graph_visualize(ds_s1, mode="Spectral", split="count-quality")
 
+
+# Animator
+make_gif(path="Graphs/Spectral_Bad_count-quality_30_f_bandpass[15_25]Hz/",
+          fname="Animate/sb30_15_25.gif", duration=0.17)
+make_gif(path="Graphs/Spectral_Good_count-quality_30_f_bandpass[15_25]Hz/",
+          fname="Animate/sg30_15_25.gif", duration=0.17)
+make_gif(path="Graphs/Spectral_Good_count-quality_10_f_bandpass[32_38]Hz/",
+          fname="Animate/sg10_32_38.gif", duration=0.17)
