@@ -214,19 +214,3 @@ class DeepModel2:
         
         return tf.squeeze(self.weights).numpy()
     
-    
-# model1 = Encoder1(shape=EEG_SHAPE)
-# model1.summary()
-# print(model1(dataset.X[20:30, :, :]), '\n', dataset.Y[20:30])
-
-# for i in range(4):
-#   plt.subplot(4, 1, i+1)
-#   plt.plot(tf.squeeze(model1.weights[0][:, :, :, i]).numpy())
-
-# plt.show()
-# # log_dir="logs1/" 
-# # os.mkdir(log_dir)
-# # tensorboard_cb = TensorBoard(log_dir=log_dir, update_freq='batch', histogram_freq=1)
-
-
-    

@@ -111,7 +111,10 @@ frame = 3
 # x, y = get_dataset_cor1(ds_s0, ds_s1, f=frame)
 # x, y = get_dataset_cor2(ds_s0, ds_s1, f=frame)
 x, y = get_dataset_cor3(ds_s0, ds_s1)
+<<<<<<< HEAD
 k = pca_cluster(X=x, Y=y, components=2, visualize=True)
+=======
+>>>>>>> d22cacbcc6bffcddb864184eb27e741e3cb2dfaa
 k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=2000)
 k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=2000)
 # in_shape = [1600]
