@@ -100,7 +100,7 @@ def calculate_graph(idb=0, idf=1, frames=30, chs=None, mode="Pearson"):
         
         fname = "g_" + mode + "_" + str(q) + "_" + str(frames) + "f"
         try:
-            os.mkdir("Graph/" + fname)
+            os.mkdir("Graphs/" + fname)
         except:
             pass
         
@@ -131,7 +131,7 @@ def visualize_graph(idb=0, idf=1, frames=30, chs=None, mode="Pearson"):
         
         fname = "g_" + mode + "_" + str(q) + "_" + str(frames) + "f"
         try:
-            os.mkdir("Graph/" + fname)
+            os.mkdir("Graphs/" + fname)
         except:
             pass
         
@@ -169,7 +169,7 @@ def visualize_graph_modified(subject_set, chs=None, mode="Pearson", ql=None):
   
     fname = mode + "_" + str(subject_set.id) + "_" + str(subject_set.cor.shape[2]) + "_f" + "_bandpass[" + str(subject_set.cf1) + "_" + str(subject_set.cf2) + "]Hz"
     try:
-        os.mkdir("Graph/" + fname)
+        os.mkdir("Graphs/" + fname)
     except:
         pass
     

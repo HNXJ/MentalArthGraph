@@ -209,7 +209,7 @@ def graphmap(cor, chs, signal_headers, sensor_locs, mode=None, name="0",
     
     ax.set_title(titl)
     if mode == "save":
-        fig.savefig("Graph/" + fname + name + ".png")
+        fig.savefig("Graphs/" + fname + name + ".png")
         # fig.close()
         plt.close("all")
         print("closed")

@@ -1,28 +1,10 @@
 from GraphMethods import *
 from DeepFeature import *
 from Clustering import *
+from Action import *
 
 
-from sklearn import metrics
 import numpy as np
-import pickle
-
-
-def save_list(l, filename="List0.txt"):
-        
-    with open(filename, "wb") as f_temp:
-        pickle.dump(l, f_temp)
-    return
-
-
-def load_list(filename="List0.txt"):
-    
-    with open(filename, "rb") as f_temp:
-        l = pickle.load(f_temp)
-    
-    return l
-
-
 
 
 # Channel initialization
@@ -31,7 +13,7 @@ chs1 = []
 for i in range(20): 
     chs1.append(i)
 chs0 = chs1
-frame = 3
+frame = 30
 
 
 
@@ -41,15 +23,12 @@ frame = 3
 # ds_p0, ds_p1 = split_count_quality(ds_pearson, id1="0", id2="1")
 # ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
 
-
-
-
-# # Data loading and preprocessing mutual information
-# chs0 = chs1
-# ds, ds_temp, ds_spect = datasets_preparation(frames=frame, order=4, cf1=15,
-#                                                     cf2=25, mth="mutual_info")
-# ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
-# ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
+# # # Data loading and preprocessing mutual information
+# # chs0 = chs1
+# # ds, ds_temp, ds_spect = datasets_preparation(frames=frame, order=4, cf1=15,
+# #                                                     cf2=25, mth="mutual_info")
+# # ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
+# # ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
 
 
@@ -66,14 +45,13 @@ frame = 3
 # save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
 
+# # Load later:
+# ds_f0 = load_list("Data/f0_3f_[15-25].txt")
+# ds_f1 = load_list("Data/f1_3f_[15-25].txt")
+# ds_s0 = load_list("Data/s0_3f_[15-25].txt")
+# ds_s1 = load_list("Data/s1_3f_[15-25].txt")
 
 
-
-# Load later:
-ds_f0 = load_list("Data/f0_3f_[15-25].txt")
-ds_f1 = load_list("Data/f1_3f_[15-25].txt")
-ds_s0 = load_list("Data/s0_3f_[15-25].txt")
-ds_s1 = load_list("Data/s1_3f_[15-25].txt")
 
 
 # # TTest heatmaps (p-values and stats)
@@ -102,20 +80,30 @@ ds_s1 = load_list("Data/s1_3f_[15-25].txt")
 
 
 
+## Animator
+# make_gif(path="Graphs/Spectral_Bad_count-quality_12_f_bandpass[60_120]Hz/",
+#          fname="Animate/sb12_60_120.gif", duration=0.17)
+# make_gif(path="Graphs/Spectral_Good_count-quality_12_f_bandpass[60_120]Hz/",
+#          fname="Animate/sg12_60_120.gif", duration=0.17)
+# make_gif(path="Graphs/Spectral_Good_count-quality_10_f_bandpass[32_38]Hz/",
+#          fname="Animate/sg10_32_38.gif", duration=0.17)
+
+
+
 ## TSNE clustering
 
-
-
-## Deep classification parts (colab recommended for this part)
 # TTest data extract
 # x, y = get_dataset_cor1(ds_s0, ds_s1, f=frame)
 # x, y = get_dataset_cor2(ds_f0, ds_f1, f=frame)
-x, y = get_dataset_cor3(ds_t0, ds_t1)
-k = pca_cluster(X=x, Y=y, components=2, visualize=True)
-k = pca_cluster(X=x, Y=y, components=3, visualize=True)
-k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000)
-k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000)
+# x, y = get_dataset_cor3(ds_t0, ds_t1)
+# k = pca_cluster(X=x, Y=y, components=2, visualize=True)
+# k = pca_cluster(X=x, Y=y, components=3, visualize=True)
+# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000)
+# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000)
 # in_shape = [1600]
+
+
+## Deep classification parts (colab recommended for this part)
 
 # dataset2 = SampleDataset()
 # dataset2.X = x[3:16, :]
@@ -124,4 +112,11 @@ k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000)
 
 # classifier1.train(200, 10, val=0.2)
 # print(classifier1.encoder(x), "\n", y)
+
+
+
+
+# Graph visualize saving frames
+run_graph_visualize(ds_s0, mode="Spectral", split="count-quality")
+run_graph_visualize(ds_s1, mode="Spectral", split="count-quality")
 
