@@ -20,8 +20,8 @@ In a system like human brain, the similarity between recorded signals (electroma
 In order to determine if some edges are important or not, we performed a statistical t-test on graph edges, based on two defined labels; high performance (good) calculator subject's EEG signal and low performance (bad) subject's EEG. Its resault are shown below:
 
 #### Stats
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg10_32_38.g)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png)
 #### P-values
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg10_32_38.g)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png)
 
 So it means, the coherence leading to [F8, O1, P3] electrodes are on average different for two set of subjects.
