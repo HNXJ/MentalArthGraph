@@ -73,16 +73,16 @@ for i in range(20):
 
 
 
-## Animator
-# make_gif(path="Graphs/Spectral_Bad_count-quality_12_f_bandpass[60_120]Hz/",
-#          fname="Animate/sb12_60_120.gif", duration=0.17)
-
-
 ## Visualize I
 # run_graph_visualize(ds_spectral, mode="Spectral", split="count-quality")
 # run_graph_visualize(ds_pearson, mode="Pearson", split="count-quality")
 # run_heatmap_visualize(ds_p0, mode="Spectral", split="quality", f=3)
 # run_heatmap_visualize(ds_p1, mode="Pearson", split="quality", f=3)
+
+
+## Animator
+# make_gif(path="Graphs/Spectral_Bad_count-quality_12_f_bandpass[60_120]Hz/",
+#          fname="Animate/sb12_60_120.gif", duration=0.17)
 
 
 ## Visualize II
