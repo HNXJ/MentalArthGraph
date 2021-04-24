@@ -69,11 +69,11 @@ frame = 3
 
 
 
-## Load later:
-# ds_f0 = load_list("Data/f0_10f_[15-25].txt")
-# ds_f1 = load_list("Data/f1_10f_[15-25].txt")
-# ds_s0 = load_list("Data/s0_10f_[15-25].txt")
-# ds_s1 = load_list("Data/s1_10f_[15-25].txt")
+# Load later:
+ds_f0 = load_list("Data/f0_3f_[15-25].txt")
+ds_f1 = load_list("Data/f1_3f_[15-25].txt")
+ds_s0 = load_list("Data/s0_3f_[15-25].txt")
+ds_s1 = load_list("Data/s1_3f_[15-25].txt")
 
 
 # # TTest heatmaps (p-values and stats)
@@ -94,7 +94,7 @@ frame = 3
 #     except:
 #         st = s
 #         pt = p
-
+    
 ## Overall (cumulative results)
 # Coherence.heatmap(pt, chs0, ds_f0[0].signal_headers, mode="Normal", name="h", tit="", save=False)
 # Coherence.heatmap(pt, chs0, ds[0].signal_headers, mode="Normal", name="h", tit="", save=False)
@@ -109,14 +109,12 @@ frame = 3
 ## Deep classification parts (colab recommended for this part)
 # TTest data extract
 # x, y = get_dataset_cor1(ds_s0, ds_s1, f=frame)
-# x, y = get_dataset_cor2(ds_s0, ds_s1, f=frame)
-x, y = get_dataset_cor3(ds_s0, ds_s1)
-<<<<<<< HEAD
+# x, y = get_dataset_cor2(ds_f0, ds_f1, f=frame)
+x, y = get_dataset_cor3(ds_t0, ds_t1)
 k = pca_cluster(X=x, Y=y, components=2, visualize=True)
-=======
->>>>>>> d22cacbcc6bffcddb864184eb27e741e3cb2dfaa
-k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=2000)
-k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=2000)
+k = pca_cluster(X=x, Y=y, components=3, visualize=True)
+k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000)
+k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000)
 # in_shape = [1600]
 
 # dataset2 = SampleDataset()
