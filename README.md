@@ -8,6 +8,10 @@ B.sc thesis of Hamed Nejat, EE/Bio-electics @ SUT (2021)
 
 In a system like human brain, the similarity between recorded signals (electromagnetic, chemical, etc...) can give us a good information about functions of brain and later investigations about related diseases. The similarity criterion and variable normalizations finally form a weight matrix that can be transformed into a weighted graph, and if criterion is causal, a directional graph. 
 
+### Local connectivity effects
+
+Due to electromagnetic properties of cortical matter, closer areas have more coherence; this problem causes the graph to be strongly connected in local nodes and weaker in distance nodes. In order to reduce this effect, we measured pink noise effect versus distance and normalized graph weights based on different frequency amplitude changes across the whole network. 
+
 #### 30 frame (5sec) window spectral coherence based graphs:
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg30_15_25.gif)
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sb30_15_25.gif)
