@@ -3,7 +3,7 @@ from sklearn.manifold import TSNE
 from matplotlib import pyplot as plt
 from sklearn.decomposition import PCA
 
-def pca_cluster(X=None, Y=None, components=2, visualize=True):
+def pca_cluster(X=None, Y=None, components=2, visualize=True, tit=None):
     
     pca = PCA(n_components=components)
     x = pca.fit_transform(X)
@@ -15,7 +15,7 @@ def pca_cluster(X=None, Y=None, components=2, visualize=True):
     return x
 
 
-def tsne_cluster(X=None, Y=None, components=2, visualize=True, iterations=100):
+def tsne_cluster(X=None, Y=None, components=2, visualize=True, iterations=100, tit=None):
     
     tsne = TSNE(n_components=components, n_iter=iterations)
     x = tsne.fit_transform(X, Y)
@@ -27,7 +27,7 @@ def tsne_cluster(X=None, Y=None, components=2, visualize=True, iterations=100):
     return x
 
 
-def tsne_plot(X=None, Y=None):
+def tsne_plot(X=None, Y=None, tit=None):
     
     if X.shape[1] == 2:        
         tsne_2d_plot(X, Y)
@@ -41,25 +41,27 @@ def tsne_plot(X=None, Y=None):
     return
 
 
-def tsne_2d_plot(X=None, Y=None):
+def tsne_2d_plot(X=None, Y=None, tit=None):
     
     fig, ax = plt.subplots(figsize=(30, 20))
     for i in range(X.shape[0]):
         
-        ax.plot(X[i, 0], X[i, 1], color=[Y[i, 0], 0.4, Y[i, 1]], marker='o', linewidth=5)
+        ax.scatter(X[i, 0], X[i, 1], color=[Y[i, 0], 0.4, Y[i, 1]], marker='o', linewidth=15)
     
     ax.grid(True)
+    ax.set_title(tit)
     fig.show()
     return
 
 
-def tsne_3d_plot(X=None, Y=None):
+def tsne_3d_plot(X=None, Y=None, tit=None):
     fig = plt.figure(figsize=(30, 20))
     ax = fig.add_subplot(projection='3d')
     for i in range(X.shape[0]):
         
-        ax.scatter(X[i, 0], X[i, 1], X[i, 2], color=[Y[i, 0], 0.4, Y[i, 1]], marker='o', linewidth=5)
+        ax.scatter(X[i, 0], X[i, 1], X[i, 2], color=[Y[i, 0], 0.4, Y[i, 1]], marker='o', linewidth=12)
     
+    ax.set_title(tit)
     fig.show()
     return
 

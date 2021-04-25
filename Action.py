@@ -9,6 +9,8 @@ def save_list(l, filename="List0.txt"):
         
     with open(filename, "wb") as f_temp:
         pickle.dump(l, f_temp)
+    
+    print("Saved.")
     return
 
 
@@ -17,6 +19,7 @@ def load_list(filename="List0.txt"):
     with open(filename, "rb") as f_temp:
         l = pickle.load(f_temp)
     
+    print("Loaded.")
     return l
 
 

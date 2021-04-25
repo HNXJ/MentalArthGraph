@@ -468,16 +468,17 @@ def visualize_ttest_heatmap(ds1, ds2, fs=0, ff=0 , mode="", save=False, render=T
     s, p = ttest_heatmap(ds1, ds2, fs, ff)
     
     try: 
-        os.mkdir("TTest_" + mode)
+        os.mkdir("Tests/")
+        os.mkdir("Tests/TTest_" + mode)
     except:
         pass
     
     if render:
         Coherence.heatmap(s, chs0, ds1[0].signal_headers,
-                          name="TTest_" + mode + "/stat_fs_" + str(fs) + "_ff_" + str(ff),
+                          name="Tests/TTest_" + mode + "/stat_fs_" + str(fs) + "_ff_" + str(ff),
                           tit="stat", save=save)
         Coherence.heatmap(p, chs0, ds2[0].signal_headers,
-                          name="TTest_" + mode + "/pval_fs_" + str(fs) + "_ff_" + str(ff),
+                          name="Tests/TTest_" + mode + "/pval_fs_" + str(fs) + "_ff_" + str(ff),
                           tit="pval", save=save)
     return s, p
 
