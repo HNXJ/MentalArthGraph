@@ -23,12 +23,16 @@ def load_list(filename="List0.txt"):
     return l
 
 
-def make_gif(path=None, fname="t.gif", duration=1):
+def make_gif(path=None, fname="t.gif", duration=1, f=75):
     
     image_folder = os.fsencode(path)
     filenames = []
+    cnt = 0
     
     for file in os.listdir(image_folder):
+        cnt += 1
+        if cnt > f:
+            continue
         filename = os.fsdecode(file)
         if filename.endswith( ('.jpeg', '.png', '.gif') ):
             filenames.append(path + filename)
