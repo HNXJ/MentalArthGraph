@@ -1,4 +1,4 @@
-# MentalArthGraph
+# Mental Arithmetics EEG Coherence Graph
 
 ### Analysis of cortical connectivity based on EEG recordings during mental arithmetics
 
