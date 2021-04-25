@@ -26,8 +26,21 @@ In order to determine if some edges are important or not, we performed a statist
 #### Stats
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztstat_fs_0_ff_1.png)
 
-So it means, the coherence leading to [F8, O2, P3] electrodes are different for two set of subjects on average. This became validated via training a deep feedforward classifier for two sets. The dataset was limited and small (22 subjects) so an augmentation applied on data via increasing frames to 5 and doing a shuffle on new 110 (22x5) data (just for classification). 
+So it means, the coherence leading to [F8, O2, P3] electrodes are different for two set of subjects on average. This became validated via training a deep feedforward classifier for two sets. The dataset was limited and small (22 subjects) so an augmentation applied on data via increasing frames to 5 and doing a shuffle on new 110 (22x5) data (just for classification). Red points are high performance subject's and blue are for low.
+
 
 ## Unsupervised results
 
 For better illustration, we calculated unsupervised TSNE/PCA clustering results on weighted graphs:
+
+#### PCA-2D
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/pca2.png)
+
+#### PCA-3D
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/pca3.png)
+
+#### TSNE-2D
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/tsne2.png)
+
+#### TSNE-3D
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/tsne2.png)
