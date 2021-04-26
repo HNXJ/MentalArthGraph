@@ -23,7 +23,7 @@ frame = 90
 # ds, ds_pearson, ds_spectral = datasets_preparation(frames=frame, order=4, cf1=15,
                                                     # cf2=25, mth="coherence")
 # ds_p0, ds_p1 = split_count_quality(ds_pearson, id1="0", id2="1")
-ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
+# ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
 
 # # # Data loading and preprocessing: mutual information
 # # chs0 = chs1
@@ -87,15 +87,15 @@ ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
 
 
 ## TSNE clustering
-# frame = 1
+frame = 90
 # TTest data extract
 # x, y = get_dataset_cor1(ds_s0, ds_s1, f=frame)
-# x, y = get_dataset_cor2(ds_f0, ds_f1, f=frame)
+x, y = get_dataset_cor2(ds_s0, ds_s1, f=frame)
 # x, y = get_dataset_cor3(ds_s0, ds_s1)
-# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2")
-# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3")
-# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000, tit="TSNE-2")
-# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000, tit="TSNE-3")
+k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2")
+k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3")
+k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000, tit="TSNE-2")
+k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000, tit="TSNE-3")
 # in_shape = [1600]
 
  
