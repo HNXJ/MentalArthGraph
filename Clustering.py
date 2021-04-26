@@ -17,7 +17,8 @@ def pca_cluster(X=None, Y=None, components=2, visualize=True, tit=None):
 
 def tsne_cluster(X=None, Y=None, components=2, visualize=True, iterations=100, tit=None):
     
-    tsne = TSNE(n_components=components, n_iter=iterations)
+    tsne = TSNE(n_components=components, n_iter=iterations, perplexity=3,
+                learning_rate=350, init='random')
     x = tsne.fit_transform(X, Y)
     x = x - np.min(np.min(x))
     x = x / np.max(np.max(x))
