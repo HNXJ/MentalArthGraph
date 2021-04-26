@@ -15,7 +15,7 @@ chs1 = []
 for i in range(20): 
     chs1.append(i)
 chs0 = chs1
-frame = 90
+frame = 1
 
 
 
@@ -54,8 +54,8 @@ frame = 90
 # ds_spectral = load_list("Data/spectral_90f_[15-25].txt")
 # ds_f0 = load_list("Data/f0_1f_[15-25].txt")
 # ds_f1 = load_list("Data/f1_1f_[15-25].txt")
-# ds_s0 = load_list("Data/s0_1f_[15-25].txt")
-# ds_s1 = load_list("Data/s1_1f_[15-25].txt")
+ds_s0 = load_list("Data/s0_1f_[15-25].txt")
+ds_s1 = load_list("Data/s1_1f_[15-25].txt")
 
 
 
@@ -86,14 +86,13 @@ frame = 90
 
 
 
-## TSNE clustering
-frame = 90
+## TSNE clustering 
 # TTest data extract
-# x, y = get_dataset_cor1(ds_s0, ds_s1, f=frame)
-x, y = get_dataset_cor2(ds_s0, ds_s1, f=frame)
+x, y = get_dataset_cor1(ds_s0, ds_s1, f=frame)
+# x, y = get_dataset_cor2(ds_s0, ds_s1, f=frame)
 # x, y = get_dataset_cor3(ds_s0, ds_s1)
-k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2")
-k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3")
+# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2")
+# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3")
 k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000, tit="TSNE-2")
 k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000, tit="TSNE-3")
 # in_shape = [1600]
