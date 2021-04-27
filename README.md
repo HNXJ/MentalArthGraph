@@ -40,28 +40,28 @@ For better illustration, we calculated unsupervised TSNE/PCA clustering results 
 ### Spectral coherence based:
 
 #### PCA-2D :
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/pca2.png)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca2.png)
 
 #### PCA-3D
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/pca3.png)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca3.png)
 
 #### TSNE-2D
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/tsne2.png)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne2.png)
 
 #### TSNE-3D
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/tsne3.png)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne3.png)
 
 
 ### Mutual information based:
 
 #### PCA-2D :
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/mi_pca2.png)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca2.png)
 
 #### PCA-3D
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/mi_pca3.png)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca3.png)
 
 #### TSNE-2D
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/mi_tsne2.png)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne2.png)
 
 #### TSNE-3D
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/mi_tsne3.png)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne3.png)
