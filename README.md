@@ -65,3 +65,12 @@ For better illustration, we calculated unsupervised TSNE/PCA clustering results 
 
 #### TSNE-3D
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne3.png)
+
+
+On MI (mutual information) based plots we can draw eclipses that separate two label classes with more than 85% accuracy (TSNE) and 80% (PCA). Yet on the SC (spectral coherence) based ones this value is respectively 75% and 70%. SC based values are still plausible but MI based ones are much better, showing the better representation in distribution domain of signals.
+
+Difference between TSNE and PCA also shows the non-linear pattern extraction advantage in such task. Consider that these EEG recordings are based on standard 10-20, non invasive and we expect much more accuracy and representation when these methods are applied on sEEG or even ECoG with much higher SNR. 
+
+### Selective graph weight results
+
+(/TODO PCA/TSNE on 25 selectvie edges with lowest P-value on TTest/)
