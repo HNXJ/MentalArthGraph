@@ -50,3 +50,18 @@ For better illustration, we calculated unsupervised TSNE/PCA clustering results 
 
 #### TSNE-3D
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/tsne3.png)
+
+
+### Mutual information based:
+
+#### PCA-2D :
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/mi_pca2.png)
+
+#### PCA-3D
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/mi_pca3.png)
+
+#### TSNE-2D
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/mi_tsne2.png)
+
+#### TSNE-3D
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/mi_tsne3.png)
