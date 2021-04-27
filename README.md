@@ -35,9 +35,11 @@ So it means, the coherence leading to [F8, O2, P3] electrodes are different for 
 
 ## Unsupervised results
 
-For better illustration, we calculated unsupervised TSNE/PCA clustering results on weighted graphs:
+For better illustration, we calculated unsupervised TSNE/PCA clustering results on weighted graphs. The next 4 plots are based on spectral coherence graphs:
 
-#### PCA-2D
+### Spectral coherence based:
+
+#### PCA-2D :
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/pca2.png)
 
 #### PCA-3D
