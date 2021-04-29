@@ -113,7 +113,6 @@ for i in range(20):
 ## Deep classification parts
 
 ## TTest data extract
-# x, y = get_dataset_cor(ds_s0, ds_s1)
 # in_shape = [20, 20, 4]
 
 # dataset2 = SampleDataset()
@@ -129,3 +128,26 @@ for i in range(20):
 # deepmodel.train(100, 7)
 
 # f = deepmodel.get_filters()
+
+# TTest data extract
+# x, y = get_dataset_cor_multiframe(ds_s0, ds_s1, f=frame)
+# x, y = get_dataset_cor_frame_augmented(ds_s0, ds_s1, f=frame)
+x, y = get_dataset_cor_meanframe(ds_s0, ds_s1)
+# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
+#                 save=True, name="sc_pca2")
+# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
+#                 save=True, name="sc_pca3")
+# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
+#                   tit="TSNE-2", save=True, name="sc_tsne2")
+# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
+#                   tit="TSNE-3", save=True, name="sc_tsne3")
+
+# x, y = get_dataset_cor3(ds_f0, ds_f1)
+# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
+#                 save=True, name="mi_pca2")
+# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
+#                 save=True, name="mi_pca3")
+# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
+#                   tit="TSNE-2", save=True, name="mi_tsne2")
+# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
+#                   tit="TSNE-3", save=True, name="mi_tsne3")
