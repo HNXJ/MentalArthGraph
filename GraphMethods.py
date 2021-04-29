@@ -469,9 +469,15 @@ def visualize_ttest_heatmap(ds1, ds2, fs=0, ff=0 , mode="", save=False, render=T
     
     try: 
         os.mkdir("Tests/")
-        os.mkdir("Tests/TTest_" + mode)
+        try:
+            os.mkdir("Tests/TTest_" + mode)
+        except:
+            pass
     except:
-        pass
+        try:
+            os.mkdir("Tests/TTest_" + mode)
+        except:
+            pass
     
     if render:
         Coherence.heatmap(s, chs0, ds1[0].signal_headers,
@@ -483,23 +489,23 @@ def visualize_ttest_heatmap(ds1, ds2, fs=0, ff=0 , mode="", save=False, render=T
     return s, p
 
 
-def get_dataset_cor1(ds1=None, ds2=None, f=1):
+def get_dataset_cor_multiframe(ds1=None, ds2=None, f=1):
     
     # x = np.zeros([20, 20, ds1[0].cor.shape[2], len(ds1)])
     # y = np.zeros([20, 20, ds2[0].cor.shape[2], len(ds2)])
-    x = np.zeros([(len(ds1) + len(ds2))*f, 20 * 20 ])
-    y = np.zeros([(len(ds1) + len(ds2))*f, 2])
+    x = np.zeros([(len(ds1) + len(ds2)), 20 * 20 * f])
+    y = np.zeros([(len(ds1) + len(ds2)), 2])
     
     cnt = 0
     for i in range(len(ds1)):
-        x[cnt*f, :] = np.reshape(ds1[i].cor[:, :, :], [1, -1])
-        y[cnt*f, 0] = 1
+        x[cnt, :] = np.reshape(ds1[i].cor[:, :, :], [1, -1])
+        y[cnt, 0] = 1
         # y[cnt, 1] = 0
         cnt += 1
         
     for i in range(len(ds2)):
-        x[cnt*f, :] = np.reshape(ds2[i].cor[:, :, :], [1, -1])
-        y[cnt*f, 1] = 1
+        x[cnt, :] = np.reshape(ds2[i].cor[:, :, :], [1, -1])
+        y[cnt, 1] = 1
         # y[cnt, 1] = 0
         cnt += 1
 
@@ -507,7 +513,7 @@ def get_dataset_cor1(ds1=None, ds2=None, f=1):
     return x, y
 
 
-def get_dataset_cor2(ds1=None, ds2=None, f=1):
+def get_dataset_cor_frame_augmented(ds1=None, ds2=None, f=1):
     
     # x = np.zeros([20, 20, ds1[0].cor.shape[2], len(ds1)])
     # y = np.zeros([20, 20, ds2[0].cor.shape[2], len(ds2)])
@@ -524,7 +530,7 @@ def get_dataset_cor2(ds1=None, ds2=None, f=1):
         
     for i in range(len(ds1)):
         for j in range(f):
-            x[cnt*f + j, :] = np.reshape(ds2[i].cor[:, :, j], [1, -1])
+            x[cnt*f + j, :] = np.reshape(ds1[i].cor[:, :, j], [1, -1])
             y[cnt*f + j, 1] = 1
             # y[cnt, 1] = 0
         cnt += 1
@@ -533,7 +539,7 @@ def get_dataset_cor2(ds1=None, ds2=None, f=1):
     return x, y
 
 
-def get_dataset_cor3(ds1=None, ds2=None):
+def get_dataset_cor_meanframe(ds1=None, ds2=None):
     
     x = np.zeros([(len(ds1) + len(ds2)), 20 * 20])
     y = np.zeros([(len(ds1) + len(ds2)), 2])
@@ -553,4 +559,41 @@ def get_dataset_cor3(ds1=None, ds2=None):
 
     return x, y
 
+
+def get_dataset_cor_selective(ds1=None, ds2=None, edges=None):
+    
+    x = np.zeros([(len(ds1) + len(ds2)), len(edges)])
+    y = np.zeros([(len(ds1) + len(ds2)), 2])
+    
+    cnt = 0
+    for i in range(len(ds2)):
+        cor_temp = np.mean(ds2[i].cor[:, :, :], 2)
+        cor_temp = np.reshape(cor_temp, [1, -1])
+        cor_temp = cor_temp[0, edges]
+        
+        x[cnt, :] = np.reshape(cor_temp, [1, -1])
+        y[cnt, 0] = 1
+        cnt += 1
+        
+    for i in range(len(ds1)):
+        cor_temp = np.mean(ds1[i].cor[:, :, :], 2)
+        cor_temp = np.reshape(cor_temp, [1, -1])
+        cor_temp = cor_temp[0, edges]
+        
+        x[cnt, :] = np.reshape(cor_temp, [1, -1])
+        y[cnt, 1] = 1
+        cnt += 1
+
+    return x, y
+
+
+def select_electrodes(table=None, thresh=0.1):
+    
+    edges = []
+    for i in range(table.shape[0]):
+        for j in range(i+1, table.shape[1]):
+            if table[i, j] < thresh:
+                edges.append(i + j*table.shape[1])
+                
+    return edges
 
