@@ -35,10 +35,11 @@ So it means, the coherence leading to [F8, O2, P3] electrodes are different for 
 
 ## Unsupervised results
 
-For better illustration, we calculated unsupervised TSNE/PCA clustering results on weighted graphs. The next 4 plots are based on spectral coherence graphs:
+For better illustration, we calculated unsupervised TSNE/PCA clustering results on weighted graphs.
 
 ### Spectral coherence based:
-
+The next 4 plots are based on spectral coherence graphs:
+ 
 #### PCA-2D :
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca2.png)
 
@@ -53,6 +54,7 @@ For better illustration, we calculated unsupervised TSNE/PCA clustering results 
 
 
 ### Mutual information based:
+Mutual information based graphs are calculated based on MI value between spectrum of two signals, the next 4 plots:
 
 #### PCA-2D :
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca2.png)
@@ -73,6 +75,6 @@ Difference between TSNE and PCA also shows the non-linear pattern extraction adv
 
 ### Selective graph weight results
 
-In order to enhance clustering and classification models, set of about 20-30 most significant electrodes based on T-Test p-values got selected. 
+In order to enhance clustering and classification models, set of about 20-30 most significant electrodes based on T-Test p-values got selected. Following plots are the same clusteing (PCA/TSNE) repeated with these electrodes, 
 
 (/TODO PCA/TSNE on 25 selectvie edges with lowest P-value on TTest/)
