@@ -115,30 +115,30 @@ print(len(edges_mi), len(edges_sc))
 
  
 # # Graph weights selective clustering
-# edges = edges_mi
-# x, y = get_dataset_cor_selective(ds_f0, ds_f1, edges)
-
-# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
-#                 save=True, name="mi_pca2_selective")
-# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
-#                 save=True, name="mi_pca3_selective")
-# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
-#                   tit="TSNE-2", save=True, name="mi_tsne2_selective")
-# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
-#                   tit="TSNE-3", save=True, name="mi_tsne3_selective")
-
-
-edges = edges_sc
-x, y = get_dataset_cor_selective(ds_s0, ds_s1, edges)
+edges = edges_mi
+x, y = get_dataset_cor_selective(ds_f0, ds_f1, edges)
 
 k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
-                save=True, name="sc_pca2_selective")
+                save=True, name="mi_pca2_selective")
 k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
-                save=True, name="sc_pca3_selective")
-k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000,
-                  tit="TSNE-2", save=True, name="sc_tsne2_selective")
-k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000,
-                  tit="TSNE-3", save=True, name="sc_tsne3_selective")
+                save=True, name="mi_pca3_selective")
+k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
+                  tit="TSNE-2", save=True, name="mi_tsne2_selective")
+k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
+                  tit="TSNE-3", save=True, name="mi_tsne3_selective")
+
+
+# edges = edges_sc
+# x, y = get_dataset_cor_selective(ds_s0, ds_s1, edges)
+
+# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
+#                 save=True, name="sc_pca2_selective")
+# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
+#                 save=True, name="sc_pca3_selective")
+# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000,
+#                   tit="TSNE-2", save=True, name="sc_tsne2_selective")
+# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000,
+#                   tit="TSNE-3", save=True, name="sc_tsne3_selective")
 
 
 # # Deep classification parts (colab recommended for this part)
