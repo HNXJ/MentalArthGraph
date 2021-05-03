@@ -75,6 +75,6 @@ Difference between TSNE and PCA also shows the non-linear pattern extraction adv
 
 ### Selective graph weight results
 
-In order to enhance clustering and classification models, set of about 20-30 most significant electrodes based on T-Test p-values got selected. Following plots are the same clusteing (PCA/TSNE) repeated with these electrodes, 
+In order to enhance clustering and classification models, set of about 20-30 most significant electrodes based on T-Test p-values got selected. Following plots are the same clusteing (PCA/TSNE) repeated with these electrodes, enhancing clustering results:
 
-(/TODO PCA/TSNE on 25 selectvie edges with lowest P-value on TTest/)
+(/TODO PCA/TSNE on 20-30 selectvie edges with lowest P-value on TTest/)
