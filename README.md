@@ -14,7 +14,7 @@ Due to electromagnetic properties of cortical matter, closer areas have more coh
 
 #### 30 frame (~2sec) window spectral coherence based graphs:
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg30_15_25.gif" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sb30_15_25.gif" width="492"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg30_15_25.gif" width="400"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sb30_15_25.gif" width="400"/>
 
 #### 10 frame (~6sec) window mutual information based graphs:
 
