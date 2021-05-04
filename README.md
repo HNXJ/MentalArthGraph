@@ -18,7 +18,7 @@ Due to electromagnetic properties of cortical matter, closer areas have more coh
 
 #### 10 frame (~6sec) window mutual information based graphs:
 
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg10_32_38.gif width="512")
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg10_32_38.gif width="600")
 
 ## Connectivity graph edge weight test
 
