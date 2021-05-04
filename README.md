@@ -24,9 +24,9 @@ Due to electromagnetic properties of cortical matter, closer areas have more coh
 In order to determine if some edges are important or not, we performed a statistical t-test on graph edges, based on two defined labels; high performance (good) calculator subject's EEG signal and low performance (bad) subject's EEG. Its resault are shown below:
 
 
-#### P-values
+#### P-values and stats
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png)
-
+![alt-text-1](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png "Pvalue") ![alt-text-2](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztstat_fs_0_ff_1.png "Stat")
 #### Stats
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztstat_fs_0_ff_1.png)
 
