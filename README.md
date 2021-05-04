@@ -24,10 +24,9 @@ Due to electromagnetic properties of cortical matter, closer areas have more coh
 In order to determine if some edges are important or not, we performed a statistical t-test on graph edges, based on two defined labels; high performance (good) calculator subject's EEG signal and low performance (bad) subject's EEG. Its resault are shown below:
 
 
-#### P-values and stats
-![alt-text-1](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png "Pvalues") ![alt-text-2](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztstat_fs_0_ff_1.png "Stats")
+#### P-values(right) and stats(left)
 
-%<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png" width="425"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztstat_fs_0_ff_1.png" width="425"/> 
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png" width="425"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztstat_fs_0_ff_1.png" width="425"/> 
 
 So it means, the coherence leading to [F8, O2, P3] electrodes are different for two set of subjects on average. This became validated via training a deep feedforward classifier for two sets. The dataset was limited and small (22 subjects) so an augmentation applied on data via increasing frames to 5 and doing a shuffle on new 110 (22x5) data (just for classification). Red points are high performance subject's and blue are for low. Consider that there is no guarantee that EEGMAT-Physionet2018-MentArth dataset labeling (performance and number of actions per minute) are so accurate, as there were some subjects with 1 action in 60 seconds, so far from average subjects with more than 15 action per 60 seconds.
 
@@ -39,11 +38,9 @@ For better illustration, we calculated unsupervised TSNE/PCA clustering results 
 ### Spectral coherence based:
 The next 4 plots are based on spectral coherence graphs:
  
-#### PCA-2D :
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca2.png)
+#### PCA(2D/3D)
 
-#### PCA-3D
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca3.png)
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca2.png" width="425"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca3.png" width="425"/>
 
 #### TSNE-2D
 ![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne2.png)
