@@ -2,7 +2,7 @@
 
 ### Analysis of cortical connectivity based on EEG recordings during mental arithmetics
 
-B.sc thesis of Hamed Nejat, EE/Bio-electics @ SUT (2021)
+B.sc thesis of Hamed Nejat, EE/Bio-electrics @ SUT (2021)
 
 ## Connectivity
 
@@ -18,7 +18,7 @@ Due to electromagnetic properties of cortical matter, closer areas have more coh
 
 #### 10 frame (~6sec) window mutual information based graphs:
 
-![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg10_32_38.gif)
+![Alt Text](https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg10_32_38.gif width="512")
 
 ## Connectivity graph edge weight test
 
@@ -26,7 +26,7 @@ In order to determine if some edges are important or not, we performed a statist
 
 #### P-values(right) and stats(left)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png" width="512"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztstat_fs_0_ff_1.png" width="512"/> 
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztstat_fs_0_ff_1.png" width="492"/> 
 
 So it means, the coherence leading to [F8, O2, P3] electrodes are different for two set of subjects on average. This became validated via training a deep feedforward classifier for two sets. The dataset was limited and small (22 subjects) so an augmentation applied on data via increasing frames to 5 and doing a shuffle on new 110 (22x5) data (just for classification). Red points are high performance subject's and blue are for low. Consider that there is no guarantee that EEGMAT-Physionet2018-MentArth dataset labeling (performance and number of actions per minute) are so accurate, as there were some subjects with 1 action in 60 seconds, so far from average subjects with more than 15 action per 60 seconds.
 
@@ -41,22 +41,22 @@ The next 4 plots are based on spectral coherence graphs:
  
 #### PCA(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca2.png" width="512"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca3.png" width="512"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca2.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca3.png" width="492"/>
 
 #### TSNE(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne2.png" width="512"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne3.png" width="512"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne2.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne3.png" width="492"/>
 
 ### Mutual information based:
 Mutual information based graphs are calculated based on MI value between spectrum of two signals, the next 4 plots:
 
 #### PCA(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca2.png" width="512"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca3.png" width="512"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca2.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca3.png" width="492"/>
 
 #### TSNE(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne2.png" width="512"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne3.png" width="512"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne2.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne3.png" width="492"/>
 
 
 On MI (mutual information) based plots we can draw eclipses that separate two label classes with more than 85% accuracy (TSNE) and 80% (PCA). Yet on the SC (spectral coherence) based ones this value is respectively 75% and 70%. SC based values are still plausible but MI based ones are much better, showing the better representation in distribution domain of signals.
@@ -70,21 +70,21 @@ In order to enhance clustering and classification models, set of about 20-30 mos
 
 #### PCA(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca2_selective.png" width="512"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca3_selective.png" width="512"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca2_selective.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_pca3_selective.png" width="492"/>
 
 #### TSNE(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne2_selective.png" width="512"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne3_selective.png" width="512"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne2_selective.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/sc_tsne3_selective.png" width="492"/>
 
 ### Mutual information based:
 Mutual information based graphs are calculated based on MI value between spectrum of two signals, the next 4 plots:
 
 #### PCA(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca2_selective.png" width="512"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca3_selective.png" width="512"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca2_selective.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_pca3_selective.png" width="492"/>
 
 #### TSNE(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne2_selective.png" width="512"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne3_selective.png" width="512"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne2_selective.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne3_selective.png" width="492"/>
 
 (/TODO Comparison details /TODO)
