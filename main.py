@@ -16,25 +16,25 @@ for i in range(20):
     chs1.append(i)
 chs0 = chs1
 
-frame = 6
+# frame = 6
 
-# Data loading and preprocessing: coherence
+# # Data loading and preprocessing: coherence
 # ds, ds_pearson, ds_spectral = datasets_preparation(frames=frame, order=4, cf1=15,
-                                                    # cf2=25, mth="coherence")
+#                                                     cf2=25, mth="coherence")
 # ds_p0, ds_p1 = split_count_quality(ds_pearson, id1="0", id2="1")
 # ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
 
-# # # Data loading and preprocessing: mutual information
-# # chs0 = chs1
-# # ds, ds_temp, ds_spect = datasets_preparation(frames=frame, order=4, cf1=15,
-# #                                                     cf2=25, mth="mutual_info")
-# # ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
-# # ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
+# # Data loading and preprocessing: mutual information
+# chs0 = chs1
+# ds, ds_temp, ds_spect = datasets_preparation(frames=frame, order=4, cf1=15,
+#                                                     cf2=25, mth="mutual_info")
+# ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
+# ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
 
 # # Saving before split to two labels
-# save_list(ds_pearson, "Data/pearson_90f_[15-25].txt")
-# save_list(ds_spectral, "Data/spectral_90f_[15-25].txt")
+# save_list(ds_pearson, "Data/pearson_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_spectral, "Data/spectral_" + str(frame) + "f_[15-25].txt")
 
 
 # # Save lists for next time :!
@@ -51,7 +51,7 @@ frame = 6
 
 # # Load later:
 # ds_spectral = load_list("Data/spectral_90f_[15-25].txt")
-# frame = 3
+# frame = 6
 
 # ds_f0 = load_list("Data/f0_" + str(frame) + "f_[15-25].txt")
 # ds_f1 = load_list("Data/f1_" + str(frame) + "f_[15-25].txt")
@@ -61,9 +61,9 @@ frame = 6
 
 
 
-# # TTest heatmaps (p-values and stats)
+# TTest heatmaps (p-values and stats)
 # for f in range(frame):
-#     s, p = visualize_ttest_heatmap(ds_s0, ds_s1, fs=f, ff=(f+1), mode="SC_Spect3Frame_15_25", save=True) 
+#     s, p = visualize_ttest_heatmap(ds_s0, ds_s1, fs=f, ff=(f+1), mode="SC_Spect6Frame_15_25", save=True) 
 #     try:
 #         st += s
 #         pt_sc += p
@@ -72,7 +72,7 @@ frame = 6
 #         pt_sc = p
 
 # for f in range(frame):
-#     s, p = visualize_ttest_heatmap(ds_f0, ds_f1, fs=f, ff=(f+1), mode="MI_Spect3Frame_15_25", save=True) 
+#     s, p = visualize_ttest_heatmap(ds_f0, ds_f1, fs=f, ff=(f+1), mode="MI_Spect6Frame_15_25", save=True) 
 #     try:
 #         st += s
 #         pt_mi += p
@@ -82,12 +82,12 @@ frame = 6
     
     
 # Overall (cumulative results)
-th = 0.012
+# th = 0.32
 # Coherence.heatmap(pt_mi < th, chs0, ds_s0[0].signal_headers, mode="Normal", name="h", tit="MI", save=False)
 # Coherence.heatmap(pt_sc < th, chs0, ds_s0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
-edges_mi = select_electrodes(pt_mi, th)
-edges_sc = select_electrodes(pt_sc, th)
-print(len(edges_mi), len(edges_sc))
+# edges_mi = select_electrodes(pt_mi, th)
+# edges_sc = select_electrodes(pt_sc, th)
+# print(len(edges_mi), len(edges_sc))
 
 
 ## Clustering
@@ -115,31 +115,31 @@ print(len(edges_mi), len(edges_sc))
 #                   tit="TSNE-3", save=True, name="mi_tsne3")
 
  
-# # Graph weights selective clustering
-# edges = edges_mi
-# x, y = get_dataset_cor_selective(ds_f0, ds_f1, edges)
+# Graph weights selective clustering
+edges = edges_mi
+x, y = get_dataset_cor_selective(ds_f0, ds_f1, edges)
 
-# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
-#                 save=True, name="mi_pca2_selective")
-# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
-#                 save=True, name="mi_pca3_selective")
-# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
-#                   tit="TSNE-2", save=True, name="mi_tsne2_selective")
-# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
-#                   tit="TSNE-3", save=True, name="mi_tsne3_selective")
+k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
+                save=True, name="mi_pca2_selective6")
+k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
+                save=True, name="mi_pca3_selective6")
+k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
+                  tit="TSNE-2", save=True, name="mi_tsne2_selective6")
+k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
+                  tit="TSNE-3", save=True, name="mi_tsne3_selective6")
 
 
-# edges = edges_sc
-# x, y = get_dataset_cor_selective(ds_s0, ds_s1, edges)
+edges = edges_sc
+x, y = get_dataset_cor_selective(ds_s0, ds_s1, edges)
 
-# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
-#                 save=True, name="sc_pca2_selective")
-# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
-#                 save=True, name="sc_pca3_selective")
-# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000,
-#                   tit="TSNE-2", save=True, name="sc_tsne2_selective")
-# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000,
-#                   tit="TSNE-3", save=True, name="sc_tsne3_selective")
+k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
+                save=True, name="sc_pca2_selective6")
+k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
+                save=True, name="sc_pca3_selective6")
+k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000,
+                  tit="TSNE-2", save=True, name="sc_tsne2_selective6")
+k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000,
+                  tit="TSNE-3", save=True, name="sc_tsne3_selective6")
 
 
 # # Deep classification parts (colab recommended for this part)
