@@ -87,4 +87,8 @@ Mutual information based graphs are calculated based on MI value between spectru
 
 <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne2_selective.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/mi_tsne3_selective.png" width="492"/>
 
-(/TODO Comparison details /TODO)
+### Comparison
+
+Clustering results based on MI method are better spearated related to SC method; although two of data nodes in the clustering are not well separated. This can be due to very different mental state of those subjects. for example, one may not focus on the tasks and still do the calculations in a flausible result. Even with assuming those data as error of our clustering and classifiers the test accuracy is more than 84%.
+
+
