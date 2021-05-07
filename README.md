@@ -20,7 +20,7 @@ Due to electromagnetic properties of cortical matter, closer areas have more coh
 
 <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/sg10_32_38.gif" width="400"/>
 
-## Connectivity graph weight testس
+## Connectivity graph weight statistical test
 
 In order to determine if some edges are important or not, we performed a statistical t-test on graph edges, based on two defined labels; high performance (good) calculator subject's EEG signal and low performance (bad) subject's EEG. Its resault are shown below:
 
