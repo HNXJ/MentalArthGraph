@@ -91,14 +91,21 @@ Mutual information based graphs are calculated based on MI value between spectru
 
 Clustering results based on MI method are better spearated related to SC method; although two of data nodes in the clustering are not well separated. This can be due to very different mental state of those subjects. for example, one may not focus on the tasks and still do the calculations in a flausible result. Even with assuming those data as error of our clustering and classifiers the test accuracy is more than 84%.
 
-### Overall results
+## Overall results
 
-* EEG-15-25Hz frequency band, SC and MI on 3s time windows (20 frame)
-* Most significant channels: [F8, P3, O1, F7, T3, T4]
+* Most results are based on EEG[15-25]Hz 4th order butterworth bandpass filtered signals, Spectral coherence (SC) and Mutual information (MI) on 3s time windows (20 frames)
+* Most significant channels: [F8, P3, O1, F7, T3, T4] based on TTest average test, lowest p-values
 * Most significant edges: [F8-F7,F8-T3,F8-P3,T3-P3,O1-T3,T4-T3]
+
 * Graph weights average std per subject is more on subjects with good calculation qualities; that means total variation of a good subject's graph is higher than a bad one 
 * Electrode distance has less effect on MI graphs than SC
 * Subjects with higher performance have more coherence between F8 signal and 6 other electrodes near occipital and temporal area.
-* Current SNR was low for event based pattern recognition (low significance)
+
+#### Notes: 
+
+* EEGMAT-Physionet's SNR was low for event based pattern recognition due to a low significant relation between number of actions and temporal filters.
+* Computational core used in this project is based on numpy-scipy libraries of python 3.8
+* +30Hz band of the dataset was filtered in preprocessing due to very low SNR, thats why we did not use them in final calculations
+
 
 
