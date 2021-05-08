@@ -28,7 +28,7 @@ In order to determine if some edges are important or not, we performed a statist
 
 <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztpval_fs_0_ff_1.png" width="400"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Animate/ztstat_fs_0_ff_1.png" width="400"/> 
 
-So it means, the coherence leading to [F8, O2, P3] electrodes are different for two set of subjects on average. This became validated via training a deep feedforward classifier for two sets. The dataset was limited and small (22 subjects) so an augmentation applied on data via increasing frames to 5 and doing a shuffle on new 110 (22x5) data (just for classification). Red points are high performance subject's and blue are for low. Consider that there is no guarantee that EEGMAT-Physionet2018-MentArth dataset labeling (performance and number of actions per minute) are so accurate, as there were some subjects with 1 action in 60 seconds, so far from average subjects with more than 15 action per 60 seconds.
+So it means, the coherence leading to [F8, O2, P3] electrodes are different for two set of subjects on average. This became validated via training a deep feedforward classifier for two sets. The dataset was limited and small (22 subjects) so an augmentation applied on data via increasing frames to 5 and doing a shuffle on new 110 (22x5) data (just for classification). Red points are high performance subject's and blue are for low. Consider that there is no guarantee that EEGMAT-Physionet2018-MentArth dataset signals (performance and number of actions per minute) are ideal as there were some subjects with 1 action in 60 seconds, so far from average subjects with more than 15 action per 60 seconds.
 
 
 ## Unsupervised results
