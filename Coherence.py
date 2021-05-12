@@ -8,6 +8,8 @@ from sklearn import metrics
 from pyedflib import highlevel
 from matplotlib import pyplot as plt
 
+from statsmodels.tsa.stattools import grangercausalitytests as gct
+
 
 def get_sensor_locs(mode="EEG"):
     sensor_locs = np.zeros([21, 2])
@@ -158,6 +160,45 @@ def mutual_info(Temps, signals, method="Temporal", channels=None, Overlap=None,
                     y = metrics.mutual_info_score(h - np.mean(h), x - np.mean(x))
                     sigm = 1 # np.std(h)*np.std(x)*h.shape[0]
                     cor[i][j][l] = y/sigm
+        
+    return cor            
+
+
+def granger_causality(Temps, signals, method="Temporal", channels=None, Overlap=None, 
+              filter_order=4, lbf=20, ubf=32, sampling_rate=500, lag=3):
+    
+    # chs = [0, 1, 2, 3, 4, 5, 8, 9, 16, 17, 18, 19]        
+    chs = [] 
+    if channels == None:
+        for i in range(21):
+            chs.append(i)
+    else:
+        chs = channels
+    
+    Interval_size = int(signals.shape[1]/Temps)
+    cor = np.zeros([len(chs), len(chs), Temps])
+        
+    nyq = sampling_rate/2
+    b, a = signal.butter(filter_order, [lbf/nyq, ubf/nyq], btype='band')
+    for k in range(21):
+        signals[k, :] = signal.lfilter(b, a, signals[k, :])
+    
+    for i in range(len(chs)): #signals.shape[0]):
+        for j in range(len(chs)):
+            for l in range(Temps):
+                ie = chs[i]
+                je = chs[j]
+                h = signals[ie, l*Interval_size:(l+1)*Interval_size]
+                x = signals[je, l*Interval_size:(l+1)*Interval_size]
+                
+                d = np.array((x, h)).transpose()
+                gc = gct(d, lag)
+                y = 0
+                
+                for l in range(lag):
+                    y += gc[1][0]['lrtest'][l]
+
+                cor[i][j][l] = y/lag
         
     return cor            
 
