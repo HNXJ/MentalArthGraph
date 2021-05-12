@@ -4,10 +4,14 @@ from Clustering import *
 from Action import *
 
 
+import statsmodels.api as sm
+
 import numpy as np
 
+d = np.array((x[1, :], x[3, :])).transpose()
+gc = gct(d, 5)
 
-
+print('p', gc[1][0]['lrtest'][1])
 
 # Channel initialization
 chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
@@ -16,7 +20,7 @@ for i in range(20):
     chs1.append(i)
 chs0 = chs1
 
-# frame = 6
+frame = 6
 
 # # Data loading and preprocessing: coherence
 # ds, ds_pearson, ds_spectral = datasets_preparation(frames=frame, order=4, cf1=15,
@@ -31,11 +35,15 @@ chs0 = chs1
 # ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
 # ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
+# Data loading and preprocessing: granger
+ds, ds_pearson, ds_spectral = datasets_preparation(frames=frame, order=4, cf1=15,
+                                                    cf2=25, mth="granger")
+ds_g0, ds_g1 = split_count_quality(ds_pearson, id1="0", id2="1")
 
 # # Saving before split to two labels
 # save_list(ds_pearson, "Data/pearson_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_spectral, "Data/spectral_" + str(frame) + "f_[15-25].txt")
-
+# save_list(ds_spectral, "Data/granger_" + str(frame) + "f_[15-25].txt")
 
 # # Save lists for next time :!
 # save_list(ds_p0, "Data/p0_" + str(frame) + "f_[15-25].txt")
@@ -48,6 +56,10 @@ chs0 = chs1
 # save_list(ds_t1, "Data/t1_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
+
+# save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
+
 
 # # Load later:
 # ds_spectral = load_list("Data/spectral_90f_[15-25].txt")
@@ -116,30 +128,30 @@ chs0 = chs1
 
  
 # Graph weights selective clustering
-edges = edges_mi
-x, y = get_dataset_cor_selective(ds_f0, ds_f1, edges)
+# edges = edges_mi
+# x, y = get_dataset_cor_selective(ds_f0, ds_f1, edges)
 
-k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
-                save=True, name="mi_pca2_selective6")
-k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
-                save=True, name="mi_pca3_selective6")
-k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
-                  tit="TSNE-2", save=True, name="mi_tsne2_selective6")
-k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
-                  tit="TSNE-3", save=True, name="mi_tsne3_selective6")
+# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
+#                 save=True, name="mi_pca2_selective6")
+# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
+#                 save=True, name="mi_pca3_selective6")
+# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
+#                   tit="TSNE-2", save=True, name="mi_tsne2_selective6")
+# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
+#                   tit="TSNE-3", save=True, name="mi_tsne3_selective6")
 
 
-edges = edges_sc
-x, y = get_dataset_cor_selective(ds_s0, ds_s1, edges)
+# edges = edges_sc
+# x, y = get_dataset_cor_selective(ds_s0, ds_s1, edges)
 
-k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
-                save=True, name="sc_pca2_selective6")
-k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
-                save=True, name="sc_pca3_selective6")
-k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000,
-                  tit="TSNE-2", save=True, name="sc_tsne2_selective6")
-k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000,
-                  tit="TSNE-3", save=True, name="sc_tsne3_selective6")
+# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
+#                 save=True, name="sc_pca2_selective6")
+# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
+#                 save=True, name="sc_pca3_selective6")
+# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=10000,
+#                   tit="TSNE-2", save=True, name="sc_tsne2_selective6")
+# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=10000,
+#                   tit="TSNE-3", save=True, name="sc_tsne3_selective6")
 
 
 # # Deep classification parts (colab recommended for this part)
