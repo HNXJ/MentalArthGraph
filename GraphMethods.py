@@ -37,6 +37,14 @@ class subject_eeg_arithmetics:
         self.cf2 = cf2
         return
     
+    def set_cor_granger_causality(self, frames, mode, chs, order, cf1, cf2, sr, lag):
+        
+        self.cor = cor = Coherence.granger_causality(frames, self.signals, mode, chs, 
+                                             None, order, cf1, cf2, sr, lag)
+        self.cf1 = cf1
+        self.cf2 = cf2
+        return
+    
 
 def load_dataset(cnt=35, fname="EEGMA/"):
  
@@ -312,7 +320,7 @@ def run_heatmap_visualize(ds, mode=None, split=None, f=0):
     return
 
 
-def datasets_preparation(frames=10, cnt=36, order=4, cf1=15, cf2=25, fname="EEGMA/", mth="coherence"):
+def datasets_preparation(frames=10, cnt=36, order=4, cf1=15, cf2=25, fname="EEGMA/", mth="coherence", lag=3):
     
     chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
     chs1 = []
@@ -357,6 +365,15 @@ def datasets_preparation(frames=10, cnt=36, order=4, cf1=15, cf2=25, fname="EEGM
                 print("Preprocessing subject no." + str(i))
         
         print("Spectral done.")
+        
+    elif mth == "granger":
+        for i in range(cnt):
+            ds_pearson[i].set_cor_granger_causality(frames=frames, mode="Pearson", chs=chs0, order=order,
+                                  cf1=cf1, cf2=cf2, sr=500, lag=lag)
+            if i%5 == 0:
+                print("Preprocessing subject no." + str(i))
+        
+        print("Granger done.")
 
     return ds, ds_pearson, ds_spectral
 
