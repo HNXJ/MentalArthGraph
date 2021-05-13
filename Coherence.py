@@ -192,7 +192,7 @@ def granger_causality(Temps, signals, method="Temporal", channels=None, Overlap=
                 x = signals[je, l*Interval_size:(l+1)*Interval_size]
                 
                 d = np.array((x, h)).transpose()
-                gc = gct(d, lag)
+                gc = gct(d, lag, verbose=False)
                 y = 0
                 
                 for l in range(lag):
