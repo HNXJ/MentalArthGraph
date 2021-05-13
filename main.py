@@ -8,10 +8,6 @@ import statsmodels.api as sm
 
 import numpy as np
 
-d = np.array((x[1, :], x[3, :])).transpose()
-gc = gct(d, 5)
-
-print('p', gc[1][0]['lrtest'][1])
 
 # Channel initialization
 chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
