@@ -367,9 +367,12 @@ def datasets_preparation(frames=10, cnt=36, order=4, cf1=15, cf2=25, fname="EEGM
         print("Spectral done.")
         
     elif mth == "granger":
+        print("Granger method selected, this takes too long to be done, so progress will be printed.")
         for i in range(cnt):
             ds_pearson[i].set_cor_granger_causality(frames=frames, mode="Pearson", chs=chs0, order=order,
                                   cf1=cf1, cf2=cf2, sr=500, lag=lag)
+            
+            print(i, "---=Done=---========================================---")
             if i%5 == 0:
                 print("Preprocessing subject no." + str(i))
         
