@@ -91,6 +91,9 @@ Mutual information based graphs are calculated based on MI value between spectru
 
 Clustering results based on MI method are better spearated related to SC method; although two of data nodes in the clustering are not well separated. This can be due to very different mental state of those subjects. for example, one may not focus on the tasks and still do the calculations in a flausible result. Even with assuming those data as error of our clustering and classifiers the test accuracy is more than 84%.
 
+### Granger causality
+ TODO
+
 ## Overall results
 
 * Most results are based on EEG[15-25]Hz 4th order butterworth bandpass filtered signals, Spectral coherence (SC) and Mutual information (MI) on 3s time windows (20 frames)
