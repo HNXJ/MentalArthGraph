@@ -40,6 +40,8 @@ frame = 6
 # save_list(ds_pearson, "Data/pearson_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_spectral, "Data/spectral_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_granger, "Data/granger_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_temp, "Data/mitemp_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_spect, "Data/mispect_" + str(frame) + "f_[15-25].txt")
 
 # # Save lists for next time :!
 # save_list(ds_p0, "Data/p0_" + str(frame) + "f_[15-25].txt")
@@ -92,20 +94,20 @@ frame = 6
     
     
 # Overall (cumulative results)
-# th = 1
+th = 0.3
 # Coherence.heatmap(pt_mi < th, chs0, ds_s0[0].signal_headers, mode="Normal", name="h", tit="MI", save=False)
-# Coherence.heatmap(pt_sc, chs0, ds_g0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
+Coherence.heatmap(pt_sc < th, chs0, ds_g0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
 # edges_mi = select_electrodes(pt_mi, th)
-# edges_sc = select_electrodes(pt_sc, th)
-# print(len(edges_sc), len(edges_sc))
+edges_sc = select_electrodes(pt_sc, th)
+print(len(edges_sc), len(edges_sc))
 
 # Coherence.heatmap(ds_pearson[5].cor[:, :, 2], chs0, ds_g0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
 
 ## Clustering
 # TTest data extract
-# x, y = get_dataset_cor_multiframe(ds_s0, ds_s1, f=frame)
-# x, y = get_dataset_cor_frame_augmented(ds_s0, ds_s1, f=frame)
-# x, y = get_dataset_cor_meanframe(ds_s0, ds_s1)
+# x, y = get_dataset_cor_multiframe(ds_g0, ds_g1, f=frame)
+# x, y = get_dataset_cor_frame_augmented(ds_g0, ds_g1, f=frame)
+# x, y = get_dataset_cor_meanframe(ds_g0, ds_g1)
 # k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
 #                 save=True, name="sc_pca2")
 # k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
@@ -127,17 +129,17 @@ frame = 6
 
  
 # Graph weights selective clustering
-# edges = edges_mi
-# x, y = get_dataset_cor_selective(ds_f0, ds_f1, edges)
+edges = edges_sc
+x, y = get_dataset_cor_selective(ds_g0, ds_g1, edges)
 
-# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
-#                 save=True, name="mi_pca2_selective6")
-# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
-#                 save=True, name="mi_pca3_selective6")
-# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
-#                   tit="TSNE-2", save=True, name="mi_tsne2_selective6")
-# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
-#                   tit="TSNE-3", save=True, name="mi_tsne3_selective6")
+k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
+                save=True, name="gc_pca2_selective6")
+k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
+                save=True, name="gc_pca3_selective6")
+k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
+                  tit="TSNE-2", save=True, name="gc_tsne2_selective6")
+k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
+                  tit="TSNE-3", save=True, name="gc_tsne3_selective6")
 
 
 # edges = edges_sc
@@ -166,9 +168,9 @@ frame = 6
 
 
 
-# Graph visualize saving frames
-run_graph_visualize(ds_granger, mode="Granger1", split="count-quality", transp=False)
-run_graph_visualize(ds_granger, mode="Granger2", split="count-quality", transp=True)
+# # Graph visualize saving frames
+# run_graph_visualize(ds_temp, mode="MI1", split="count-quality", transp=False)
+# run_graph_visualize(ds_spect, mode="MI2", split="count-quality", transp=False)
 # run_graph_visualize(ds_pearson, mode="Granger", split="count-quality")
 
 
