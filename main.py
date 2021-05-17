@@ -32,14 +32,14 @@ frame = 6
 # ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
 # Data loading and preprocessing: granger
-ds, ds_pearson, ds_spectral = datasets_preparation(frames=frame, order=4, cf1=15,
-                                                    cf2=25, mth="granger", lag=1)
-ds_g0, ds_g1 = split_count_quality(ds_pearson, id1="0", id2="1")
+# ds, ds_granger, _ = datasets_preparation(frames=frame, order=4, cf1=15,
+#                                                     cf2=25, mth="granger", lag=1)
+# ds_g0, ds_g1 = split_count_quality(ds_granger, id1="0", id2="1")
 
-# # Saving before split to two labels
+# # # Saving before split to two labels
 # save_list(ds_pearson, "Data/pearson_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_spectral, "Data/spectral_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_spectral, "Data/granger_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_granger, "Data/granger_" + str(frame) + "f_[15-25].txt")
 
 # # Save lists for next time :!
 # save_list(ds_p0, "Data/p0_" + str(frame) + "f_[15-25].txt")
@@ -53,8 +53,10 @@ ds_g0, ds_g1 = split_count_quality(ds_pearson, id1="0", id2="1")
 # save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
 
-save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
-save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
+# ds_g0 = load_list("Data/g0_" + str(frame) + "f_[15-25].txt")
+# ds_g1 = load_list("Data/g1_" + str(frame) + "f_[15-25].txt")
 
 
 # # Load later:
@@ -164,8 +166,9 @@ save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
 
 
 
-# # Graph visualize saving frames
-# run_graph_visualize(ds_spectral, mode="Spectral", split="count-quality")
+# Graph visualize saving frames
+run_graph_visualize(ds_granger, mode="Granger1", split="count-quality", transp=False)
+run_graph_visualize(ds_granger, mode="Granger2", split="count-quality", transp=True)
 # run_graph_visualize(ds_pearson, mode="Granger", split="count-quality")
 
 
