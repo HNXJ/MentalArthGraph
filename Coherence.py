@@ -195,9 +195,9 @@ def granger_causality(Temps, signals, method="Temporal", channels=None, Overlap=
                 gc = gct(d, lag, verbose=False)
                 y = 0
                 
-                for l in range(lag):
-                    if gc[1][0]['lrtest'][l] > 0:
-                        y += gc[1][0]['lrtest'][l]
+                for lg in range(lag):
+                    if gc[1][0]['lrtest'][lg] > 0:
+                        y += gc[1][0]['lrtest'][lg]
 
                 cor[i][j][l] = y/lag
         
@@ -225,11 +225,13 @@ def heatmap(img, chs, signal_headers, mode="Normal", name="h", tit="", save=Fals
     
 
 def graphmap(cor, chs, signal_headers, sensor_locs, mode=None, name="0",
-             fname="Graphs/", titl=None):
+             fname="Graphs/", titl=None, transp=False):
     
     img = load_image("EEGMA/10-20.jpg")
     fig, ax = plt.subplots(figsize=(21, 23))
-    
+    if transp:
+        cor = np.transpose(cor)
+        
     w = img.shape[0]
     h = img.shape[1]
 
@@ -241,7 +243,7 @@ def graphmap(cor, chs, signal_headers, sensor_locs, mode=None, name="0",
     for i in range(len(chs)):
         ax.text(sensor_locs[chs[i], 0], sensor_locs[chs[i], 1]
                 , signal_headers[chs[i]]['label'], color='green', fontsize=30)
-        for j in range(len(chs)):
+        for j in range(i, len(chs)):
             x = np.linspace(lx[chs[i]], lx[chs[j]], 10)
             y = np.linspace(ly[chs[i]], ly[chs[j]], 10)
             
@@ -262,10 +264,12 @@ def graphmap(cor, chs, signal_headers, sensor_locs, mode=None, name="0",
     return 
 
 
-def graphmat(cor):
+def graphmat(cor, mode=None):
     
     cor = cor - np.min(np.min(cor))
     cor = cor / np.max(np.max(cor))
+    # if mode == "Granger1" or mode == "Granger2":
+    #     cor = 1 - cor
         
     return cor
 
