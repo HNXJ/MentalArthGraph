@@ -33,7 +33,7 @@ frame = 6
 
 # Data loading and preprocessing: granger
 ds, ds_pearson, ds_spectral = datasets_preparation(frames=frame, order=4, cf1=15,
-                                                    cf2=25, mth="granger")
+                                                    cf2=25, mth="granger", lag=1)
 ds_g0, ds_g1 = split_count_quality(ds_pearson, id1="0", id2="1")
 
 # # Saving before split to two labels
@@ -53,8 +53,8 @@ ds_g0, ds_g1 = split_count_quality(ds_pearson, id1="0", id2="1")
 # save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
 
-# save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
+save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
+save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
 
 
 # # Load later:
@@ -71,7 +71,7 @@ ds_g0, ds_g1 = split_count_quality(ds_pearson, id1="0", id2="1")
 
 # TTest heatmaps (p-values and stats)
 # for f in range(frame):
-#     s, p = visualize_ttest_heatmap(ds_s0, ds_s1, fs=f, ff=(f+1), mode="SC_Spect6Frame_15_25", save=True) 
+#     s, p = visualize_ttest_heatmap(ds_g0, ds_g1, fs=f, ff=(f+1), mode="GC_Spect6Frame_15_25", save=True) 
 #     try:
 #         st += s
 #         pt_sc += p
@@ -90,13 +90,14 @@ ds_g0, ds_g1 = split_count_quality(ds_pearson, id1="0", id2="1")
     
     
 # Overall (cumulative results)
-# th = 0.32
+# th = 1
 # Coherence.heatmap(pt_mi < th, chs0, ds_s0[0].signal_headers, mode="Normal", name="h", tit="MI", save=False)
-# Coherence.heatmap(pt_sc < th, chs0, ds_s0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
+# Coherence.heatmap(pt_sc, chs0, ds_g0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
 # edges_mi = select_electrodes(pt_mi, th)
 # edges_sc = select_electrodes(pt_sc, th)
-# print(len(edges_mi), len(edges_sc))
+# print(len(edges_sc), len(edges_sc))
 
+# Coherence.heatmap(ds_pearson[5].cor[:, :, 2], chs0, ds_g0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
 
 ## Clustering
 # TTest data extract
@@ -165,7 +166,7 @@ ds_g0, ds_g1 = split_count_quality(ds_pearson, id1="0", id2="1")
 
 # # Graph visualize saving frames
 # run_graph_visualize(ds_spectral, mode="Spectral", split="count-quality")
-# run_graph_visualize(ds_pearson, mode="Spectral", split="count-quality")
+# run_graph_visualize(ds_pearson, mode="Granger", split="count-quality")
 
 
 # Animator
