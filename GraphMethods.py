@@ -166,7 +166,7 @@ def visualize_graph(idb=0, idf=1, frames=30, chs=None, mode="Pearson"):
     return
 
 
-def visualize_graph_modified(subject_set, chs=None, mode="Pearson", ql=None):
+def visualize_graph_modified(subject_set, chs=None, mode="Pearson", ql=None, transp=False):
     
     chs1 = []
     for i in range(20):
@@ -188,14 +188,14 @@ def visualize_graph_modified(subject_set, chs=None, mode="Pearson", ql=None):
         
         print("frame no." + str(frame) + " ... ")
         sensor_locs1 = Coherence.get_sensor_locs(mode="EEG")
-        cor_a = Coherence.graphmat(subject_set.cor[:, :, frame])
+        cor_a = Coherence.graphmat(subject_set.cor[:, :, frame], mode=mode)
         Coherence.graphmap(cor_a, chs, subject_set.signal_headers,
                             sensor_locs=sensor_locs1,
                             mode="save", name="f_" + str(frame) + "count_" +
                             str(subject_set.subtractions),
                             fname=fname + "/", 
                             titl=title_subj + "_frame_" + str(frame) + 
-                            "_Correlation_" + mode + "_" + ql)
+                            "_Correlation_" + mode + "_" + ql, transp=transp)
     
     return
 
@@ -240,10 +240,10 @@ def mean_graph_quality(ds, id1="0", id2="1"):
     
 def mean_graph_count_quality(ds, id1="0", id2="1"):
     
+    ds_0 = []
     ds_1 = []
-    ds_2 = []
     
-    for q in range(35):
+    for q in range(len(ds)):
 
         if ds[q].quality == "0" and float(ds[q].subtractions) < 9.0:
             
@@ -270,13 +270,13 @@ def mean_graph_count_quality(ds, id1="0", id2="1"):
                 ds_1 = subject_eeg_arithmetics(ds[q].signals, ds[q].cor, ds[q].subtractions,
                                             1, ds[q].signal_headers, 
                                             id2, ds[q].cf1, ds[1].cf2)
-                
+    
     ds_0.cor /= ds_0.quality
     ds_1.cor /= ds_1.quality
     return ds_0, ds_1
     
 
-def visualize_mean_graph(ds, chs0=None, split_type="quality", mode=None):
+def visualize_mean_graph(ds, chs0=None, split_type="quality", mode=None, transp=False):
     
     chs1 = []
     for i in range(20): 
@@ -291,11 +291,11 @@ def visualize_mean_graph(ds, chs0=None, split_type="quality", mode=None):
     if split_type == "count-quality":
         ds0, ds1 = mean_graph_count_quality(ds, lb1, lb2)
         
-    visualize_graph_modified(ds0, chs=chs0, mode=mode, ql=lb1)
-    visualize_graph_modified(ds1, chs=chs0, mode=mode, ql=lb2)
+    visualize_graph_modified(ds0, chs=chs0, mode=mode, ql=lb1, transp=transp)
+    visualize_graph_modified(ds1, chs=chs0, mode=mode, ql=lb2, transp=transp)
 
 
-def run_graph_visualize(ds, mode=None, split=None):
+def run_graph_visualize(ds, mode=None, split=None, transp=False):
     
     chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
     chs1 = []
@@ -304,7 +304,7 @@ def run_graph_visualize(ds, mode=None, split=None):
     
     chs0 = chs1
     print("Stablishing sets, ")
-    visualize_mean_graph(ds, chs0, split_type=split, mode=mode)
+    visualize_mean_graph(ds, chs0, split_type=split, mode=mode, transp=transp)
     return
 
     
