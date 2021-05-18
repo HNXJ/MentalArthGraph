@@ -3,9 +3,6 @@ from DeepFeature import *
 from Clustering import *
 from Action import *
 
-
-import statsmodels.api as sm
-
 import numpy as np
 
 
@@ -31,7 +28,7 @@ frame = 6
 # ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
 # ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
-# Data loading and preprocessing: granger
+# # Data loading and preprocessing: granger
 # ds, ds_granger, _ = datasets_preparation(frames=frame, order=4, cf1=15,
 #                                                     cf2=25, mth="granger", lag=1)
 # ds_g0, ds_g1 = split_count_quality(ds_granger, id1="0", id2="1")
@@ -54,6 +51,7 @@ frame = 6
 # save_list(ds_t1, "Data/t1_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
+
 
 # save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
@@ -93,8 +91,8 @@ frame = 6
 #         pt_mi = p
     
     
-# Overall (cumulative results)
-th = 0.3
+# # Overall (cumulative results)
+th = 0.2
 # Coherence.heatmap(pt_mi < th, chs0, ds_s0[0].signal_headers, mode="Normal", name="h", tit="MI", save=False)
 Coherence.heatmap(pt_sc < th, chs0, ds_g0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
 # edges_mi = select_electrodes(pt_mi, th)
@@ -128,18 +126,18 @@ print(len(edges_sc), len(edges_sc))
 #                   tit="TSNE-3", save=True, name="mi_tsne3")
 
  
-# Graph weights selective clustering
-edges = edges_sc
-x, y = get_dataset_cor_selective(ds_g0, ds_g1, edges)
+# # Graph weights selective clustering
+# edges = edges_sc
+# x, y = get_dataset_cor_selective(ds_g0, ds_g1, edges)
 
-k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
-                save=True, name="gc_pca2_selective6")
-k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
-                save=True, name="gc_pca3_selective6")
-k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
-                  tit="TSNE-2", save=True, name="gc_tsne2_selective6")
-k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
-                  tit="TSNE-3", save=True, name="gc_tsne3_selective6")
+# k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
+#                 save=True, name="gc_pca2_selective6")
+# k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
+#                 save=True, name="gc_pca3_selective6")
+# k = tsne_cluster(X=x, Y=y, components=2, visualize=True, iterations=5000,
+#                   tit="TSNE-2", save=True, name="gc_tsne2_selective6")
+# k = tsne_cluster(X=x, Y=y, components=3, visualize=True, iterations=5000,
+#                   tit="TSNE-3", save=True, name="gc_tsne3_selective6")
 
 
 # edges = edges_sc
