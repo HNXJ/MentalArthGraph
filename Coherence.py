@@ -195,11 +195,11 @@ def granger_causality(Temps, signals, method="Temporal", channels=None, Overlap=
                 gc = gct(d, lag, verbose=False)
                 y = 0
                 
-                for lg in range(lag):
-                    if gc[1][0]['lrtest'][lg] > 0:
-                        y += gc[1][0]['lrtest'][lg]
+                # for lg in range(lag):
+                if gc[1][0]['lrtest'][1] > 0:
+                    y += gc[1][0]['lrtest'][1]
 
-                cor[i][j][l] = y/lag
+                cor[i][j][l] = y
         
     return cor            
 
