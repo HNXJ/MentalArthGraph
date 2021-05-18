@@ -96,11 +96,11 @@ This method intuitively tests if two series (e.g signals) can predict eachother 
 
 #### PCA(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/gc_pca2_selective.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/gc_pca3_selective.png" width="492"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/gc_pca2_selective6.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/gc_pca3_selective6.png" width="492"/>
 
 #### TSNE(2D/3D)
 
-<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/gc_tsne2_selective.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/gc_tsne3_selective.png" width="492"/>
+<img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/gc_tsne2_selective6.png" width="492"/> <img src="https://github.com/HNXJ/MentalArthGraph/blob/main/Plots/gc_tsne3_selective6.png" width="492"/>
 
 
 ## Overall results
