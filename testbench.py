@@ -3,6 +3,21 @@ from DeepFeature import *
 import numpy as np
 
 
+# import statsmodels.api as sm
+# from statsmodels.tsa.stattools import grangercausalitytests as gct
+
+# x = np.sin(np.linspace(0, 10, 100))
+# y1 = np.random.rand(100)
+# y2 = np.multiply(x, y1)
+
+# d1 = np.array((x, y1)).transpose()
+# d2 = np.array((x, x)).transpose()
+
+# f1 = gct(d1, 1)
+# f2 = gct(d2, 1)
+# print(f1[1][0]['lrtest'][1])
+
+
 # Channel initialization
 chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
 chs1 = []
