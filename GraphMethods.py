@@ -166,7 +166,8 @@ def visualize_graph(idb=0, idf=1, frames=30, chs=None, mode="Pearson"):
     return
 
 
-def visualize_graph_modified(subject_set, chs=None, mode="Pearson", ql=None, transp=False):
+def visualize_graph_modified(subject_set, chs=None, mode="Pearson", ql=None,
+                             transp=False, directed=False):
     
     chs1 = []
     for i in range(20):
@@ -195,7 +196,8 @@ def visualize_graph_modified(subject_set, chs=None, mode="Pearson", ql=None, tra
                             str(subject_set.subtractions),
                             fname=fname + "/", 
                             titl=title_subj + "_frame_" + str(frame) + 
-                            "_Correlation_" + mode + "_" + ql, transp=transp)
+                            "_Correlation_" + mode + "_" + ql, transp=transp,
+                            directed=directed)
     
     return
 
@@ -276,7 +278,8 @@ def mean_graph_count_quality(ds, id1="0", id2="1"):
     return ds_0, ds_1
     
 
-def visualize_mean_graph(ds, chs0=None, split_type="quality", mode=None, transp=False):
+def visualize_mean_graph(ds, chs0=None, split_type="quality", mode=None, transp=False,
+                         directed=False):
     
     chs1 = []
     for i in range(20): 
@@ -291,11 +294,13 @@ def visualize_mean_graph(ds, chs0=None, split_type="quality", mode=None, transp=
     if split_type == "count-quality":
         ds0, ds1 = mean_graph_count_quality(ds, lb1, lb2)
         
-    visualize_graph_modified(ds0, chs=chs0, mode=mode, ql=lb1, transp=transp)
-    visualize_graph_modified(ds1, chs=chs0, mode=mode, ql=lb2, transp=transp)
+    visualize_graph_modified(ds0, chs=chs0, mode=mode, ql=lb1, transp=transp,
+                             directed=directed)
+    visualize_graph_modified(ds1, chs=chs0, mode=mode, ql=lb2, transp=transp,
+                             directed=directed)
 
 
-def run_graph_visualize(ds, mode=None, split=None, transp=False):
+def run_graph_visualize(ds, mode=None, split=None, transp=False, directed=False):
     
     chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
     chs1 = []
@@ -304,7 +309,8 @@ def run_graph_visualize(ds, mode=None, split=None, transp=False):
     
     chs0 = chs1
     print("Stablishing sets, ")
-    visualize_mean_graph(ds, chs0, split_type=split, mode=mode, transp=transp)
+    visualize_mean_graph(ds, chs0, split_type=split, mode=mode, transp=transp,
+                         directed=directed)
     return
 
     
