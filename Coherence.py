@@ -225,7 +225,7 @@ def heatmap(img, chs, signal_headers, mode="Normal", name="h", tit="", save=Fals
     
 
 def graphmap(cor, chs, signal_headers, sensor_locs, mode=None, name="0",
-             fname="Graphs/", titl=None, transp=False):
+             fname="Graphs/", titl=None, transp=False, directed=False):
     
     img = load_image("EEGMA/10-20.jpg")
     fig, ax = plt.subplots(figsize=(21, 23))
@@ -243,13 +243,19 @@ def graphmap(cor, chs, signal_headers, sensor_locs, mode=None, name="0",
     for i in range(len(chs)):
         ax.text(sensor_locs[chs[i], 0], sensor_locs[chs[i], 1]
                 , signal_headers[chs[i]]['label'], color='green', fontsize=30)
-        for j in range(i, len(chs)):
+        for j in range(i+1, len(chs)):
             x = np.linspace(lx[chs[i]], lx[chs[j]], 10)
             y = np.linspace(ly[chs[i]], ly[chs[j]], 10)
             
             ax.plot(x, y, marker='.', linestyle='-', linewidth=cor[chs[i], chs[j]]*10 + 1, 
                     color=[1-cor[chs[i], chs[j]], 1-cor[chs[i], chs[j]],
                            1-cor[chs[i], chs[j]]])
+            
+            if directed:
+                if transp:
+                    ax.arrow(x[4], y[4], x[5]-x[4], y[5]-y[4], shape='full', lw=0.1, length_includes_head=False, head_width=0.1 + 3*cor[chs[i], chs[j]])
+                else:
+                    ax.arrow(x[4], y[4], x[4]-x[5], y[4]-y[5], shape='full', lw=0.1, length_includes_head=False, head_width=0.1 + 3*cor[chs[i], chs[j]])
     
     ax.set_title(titl)
     if mode == "save":
