@@ -7,13 +7,18 @@ import numpy as np
 
 
 # Channel initialization
-chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
-chs1 = []
-for i in range(20): 
-    chs1.append(i)
-chs0 = chs1
+# chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
+# chs1 = []
+# for i in range(20): 
+#     chs1.append(i)
+# chs0 = chs1
 
-frame = 6
+
+###################### GLOBAL INITIALIZATION ######################
+ 
+    ### PLEASE SET FRAME BEFORE UNCOMMENTING
+ 
+# frame = 4
 
 # # Data loading and preprocessing: coherence
 # ds, ds_pearson, ds_spectral = datasets_preparation(frames=frame, order=4, cf1=15,
@@ -28,7 +33,7 @@ frame = 6
 # ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
 # ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
-# # Data loading and preprocessing: granger
+# Data loading and preprocessing: granger
 # ds, ds_granger, _ = datasets_preparation(frames=frame, order=4, cf1=15,
 #                                                     cf2=25, mth="granger", lag=1)
 # ds_g0, ds_g1 = split_count_quality(ds_granger, id1="0", id2="1")
@@ -55,6 +60,8 @@ frame = 6
 
 # save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
+
+# ds_granger = load_list("Data/granger_" + str(frame) + "f_[15-25].txt")
 # ds_g0 = load_list("Data/g0_" + str(frame) + "f_[15-25].txt")
 # ds_g1 = load_list("Data/g1_" + str(frame) + "f_[15-25].txt")
 
@@ -92,12 +99,12 @@ frame = 6
     
     
 # # Overall (cumulative results)
-th = 0.2
+# th = 7.0
 # Coherence.heatmap(pt_mi < th, chs0, ds_s0[0].signal_headers, mode="Normal", name="h", tit="MI", save=False)
-Coherence.heatmap(pt_sc < th, chs0, ds_g0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
+# Coherence.heatmap(pt_sc < th, chs0, ds_g0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
 # edges_mi = select_electrodes(pt_mi, th)
-edges_sc = select_electrodes(pt_sc, th)
-print(len(edges_sc), len(edges_sc))
+# edges_sc = select_electrodes(pt_sc, th)
+# print(len(edges_sc))
 
 # Coherence.heatmap(ds_pearson[5].cor[:, :, 2], chs0, ds_g0[0].signal_headers, mode="Normal", name="h", tit="SC", save=False)
 
@@ -169,12 +176,15 @@ print(len(edges_sc), len(edges_sc))
 # # Graph visualize saving frames
 # run_graph_visualize(ds_temp, mode="MI1", split="count-quality", transp=False)
 # run_graph_visualize(ds_spect, mode="MI2", split="count-quality", transp=False)
-# run_graph_visualize(ds_pearson, mode="Granger", split="count-quality")
+# run_graph_visualize(ds_granger, mode="Granger1", split="count-quality",
+#                     transp=False, directed=True)
+# run_graph_visualize(ds_granger, mode="Granger2", split="count-quality",
+#                     transp=True, directed=True)
 
 
 # Animator
-# make_gif(path="Graphs/Spectral_Good_count-quality_90_f_bandpass[15_25]Hz/",
-#           fname="Animate/sg90_15_25.gif", duration=0.23, f=70)
+make_gif(path="Graphs/Granger_Bad_count-quality_60_f_bandpass[15_25]Hz/",
+          fname="Animate/gc60_15_25.gif", duration=0.23, f=70)
 # make_gif(path="Graphs/Spectral_Bad_count-quality_90_f_bandpass[15_25]Hz/",
 #           fname="Animate/sb90_15_25.gif", duration=0.23, f=70)
 # make_gif(path="Graphs/Spectral_Good_count-quality_10_f_bandpass[32_38]Hz/",
