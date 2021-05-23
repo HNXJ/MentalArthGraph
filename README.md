@@ -116,7 +116,7 @@ This method intuitively tests if two series (e.g signals) can predict eachother 
 #### Notes: 
 
 * EEGMAT-Physionet's SNR was low for event based pattern recognition due to a low significant relation between number of actions and temporal filters.
-* Computational core used in this project is based on numpy-scipy libraries of python 3.8
+* Computational core used in this project is based on numpy/scipy/statsmodel libraries of python 3.8
 * +30Hz band of the dataset was filtered in preprocessing due to very low SNR, thats why we did not use them in final calculations
 
 
