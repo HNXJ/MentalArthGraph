@@ -113,6 +113,8 @@ This method intuitively tests if two series (e.g signals) can predict eachother 
 * Electrode distance has less effect on MI graphs than SC
 * Subjects with higher performance have more coherence between F8 signal and 6 other electrodes near occipital and temporal area.
 
+* Granger causality results (clustering, classification) are better than SC and a bit better than MI, this could be due to lesser effect of electrode distance
+
 #### Notes: 
 
 * EEGMAT-Physionet's SNR was low for event based pattern recognition due to a low significant relation between number of actions and temporal filters.
