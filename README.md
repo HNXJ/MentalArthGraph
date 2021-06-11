@@ -115,6 +115,7 @@ This method intuitively tests if two series (e.g signals) can predict eachother 
 
 * GC and MI are less affected by electrode distance 
 * Granger causality results (clustering, classification) are better than SC and a bit better than MI, this could be due to lesser effect of electrode distance
+* Selecting specific connections (most significant ones) for clustering enhanced the spearation and clusters.
 
 #### Notes: 
 
