@@ -62,9 +62,6 @@ frame = 10
 # save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
 
 # ds_granger = load_list("Data/granger_" + str(frame) + "f_[15-25].txt")
-ds_f0 = load_list("Data/f0_" + str(frame) + "f_[15-25].txt")
-ds_f1 = load_list("Data/f1_" + str(frame) + "f_[15-25].txt")
-
 
 # # Load later:
 # ds_spectral = load_list("Data/spectral_90f_[15-25].txt")
@@ -75,18 +72,20 @@ ds_f1 = load_list("Data/f1_" + str(frame) + "f_[15-25].txt")
 # ds_s0 = load_list("Data/s0_" + str(frame) + "f_[15-25].txt")
 # ds_s1 = load_list("Data/s1_" + str(frame) + "f_[15-25].txt")
 
-
-
-
 # TTest heatmaps (p-values and stats)
-# for f in range(frame):
-#     s, p = visualize_ttest_heatmap(ds_g0, ds_g1, fs=f, ff=(f+1), mode="GC_Spect6Frame_15_25", save=True) 
-#     try:
-#         st += s
-#         pt_sc += p
-#     except:
-#         st = s
-#         pt_sc = p
+for f in range(1):
+    s, p = visualize_ttest_heatmap(ds_f0, ds_f1, fs=f, ff=(f+1),
+                                   mode="MI_Spect10Frame_15_25",
+                                   save=False, render=False) 
+    try:
+        st += s
+        pt_sc += p
+    except:
+        st = s
+        pt_sc = p
+
+# pt_sc /= frame
+# st /= frame
 
 # for f in range(frame):
 #     s, p = visualize_ttest_heatmap(ds_f0, ds_f1, fs=f, ff=(f+1), mode="MI_Spect6Frame_15_25", save=True) 
