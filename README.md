@@ -106,7 +106,7 @@ This method intuitively tests if two series (e.g signals) can predict eachother 
 ## Overall results
 
 * Most results are based on EEG[15-25]Hz 4th order butterworth bandpass filtered signals, Spectral coherence (SC) and Mutual information (MI) on 3s time windows (20 frames)
-* Most significant channels: [F8, P3, O1, F7, T3, T4] based on TTest average test, lowest p-values
+* Most significant channels: [F8, P3, O1, F7, T3, T4] based on TTest average test, lowest p-values, FDR correction applied.
 * Most significant edges: [F8-F7,F8-T3,F8-P3,T3-P3,O1-T3,T4-T3]
 
 * Graph weights average std per subject is more on subjects with good calculation qualities; that means total variation of a good subject's graph is higher than a bad one 
