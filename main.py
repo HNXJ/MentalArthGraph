@@ -7,18 +7,18 @@ import numpy as np
 
 
 # Channel initialization
-# chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
-# chs1 = []
-# for i in range(20): 
-#     chs1.append(i)
-# chs0 = chs1
+chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
+chs1 = []
+for i in range(20): 
+    chs1.append(i)
+chs0 = chs1
 
 
 ###################### GLOBAL INITIALIZATION ######################
  
     ### PLEASE SET FRAME BEFORE UNCOMMENTING
  
-# frame = 4
+frame = 10
 
 # # Data loading and preprocessing: coherence
 # ds, ds_pearson, ds_spectral = datasets_preparation(frames=frame, order=4, cf1=15,
@@ -27,11 +27,11 @@ import numpy as np
 # ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
 
 # # Data loading and preprocessing: mutual information
-# chs0 = chs1
-# ds, ds_temp, ds_spect = datasets_preparation(frames=frame, order=4, cf1=15,
-#                                                     cf2=25, mth="mutual_info")
+chs0 = chs1
+ds, ds_temp, ds_spect = datasets_preparation(frames=frame, order=4, cf1=15,
+                                                    cf2=25, mth="mutual_info")
 # ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
-# ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
+ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
 # Data loading and preprocessing: granger
 # ds, ds_granger, _ = datasets_preparation(frames=frame, order=4, cf1=15,
@@ -43,7 +43,7 @@ import numpy as np
 # save_list(ds_spectral, "Data/spectral_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_granger, "Data/granger_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_temp, "Data/mitemp_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_spect, "Data/mispect_" + str(frame) + "f_[15-25].txt")
+save_list(ds_spect, "Data/mispect_" + str(frame) + "f_[15-25].txt")
 
 # # Save lists for next time :!
 # save_list(ds_p0, "Data/p0_" + str(frame) + "f_[15-25].txt")
@@ -54,16 +54,16 @@ import numpy as np
 # # Save lists for next time :D
 # save_list(ds_t0, "Data/t0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_t1, "Data/t1_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
+save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
+save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
 
 
 # save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
 
 # ds_granger = load_list("Data/granger_" + str(frame) + "f_[15-25].txt")
-# ds_g0 = load_list("Data/g0_" + str(frame) + "f_[15-25].txt")
-# ds_g1 = load_list("Data/g1_" + str(frame) + "f_[15-25].txt")
+# ds_t0 = load_list("Data/f0_" + str(frame) + "f_[15-25].txt")
+# ds_t1 = load_list("Data/f1_" + str(frame) + "f_[15-25].txt")
 
 
 # # Load later:
@@ -183,9 +183,13 @@ import numpy as np
 
 
 # Animator
-make_gif(path="Graphs/Granger_Bad_count-quality_60_f_bandpass[15_25]Hz/",
-          fname="Animate/gc60_15_25.gif", duration=0.23, f=70)
+# make_gif(path="Graphs/Grange1_Bad_count-quality_60_f_bandpass[15_25]Hz/",
+#            fname="Animate/gcb60_15_25.gif", duration=0.23, f=70)
+# make_gif(path="Graphs/Grange1_Good_count-quality_60_f_bandpass[15_25]Hz/",
+#            fname="Animate/gcg60_15_25.gif", duration=0.23, f=70
 # make_gif(path="Graphs/Spectral_Bad_count-quality_90_f_bandpass[15_25]Hz/",
 #           fname="Animate/sb90_15_25.gif", duration=0.23, f=70)
 # make_gif(path="Graphs/Spectral_Good_count-quality_10_f_bandpass[32_38]Hz/",
 #           fname="Animate/sg10_32_38.gif", duration=0.12)
+
+
