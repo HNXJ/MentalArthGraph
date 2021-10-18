@@ -458,6 +458,9 @@ def ttest_heatmap(ds1=None, ds2=None, fs=0, ff=0):
                 # img_s[i, j], img_p[i, j] = stats.ttest_ind(x1, y1, equal_var=False)
                 # img_s[i, j], img_p[i, j] = sm.stats.ztest(x1, y1)
                 img_s[i, j], img_p[i, j], _ = sm.stats.ttest_ind(x1, y1)
+            elif i == j:
+                img_s[i, i] = 0
+                img_p[i, i] = 0
             
     return img_s, img_p
 
@@ -622,4 +625,15 @@ def select_electrodes(table=None, thresh=0.1):
                 edges.append(i + j*table.shape[1])
                 
     return edges
+
+
+def correction_fdr_test(pvalues=None, alpha=0.1, method='indep', is_sorted=False):
+    
+    a = np.reshape(pvalues, [-1])
+    d, pv_c = statsmodels.stats.multitest.fdrcorrection(pvals=a, alpha=alpha,
+                                                        method=method, is_sorted=is_sorted)
+    
+    d = np.reshape(d, pvalues.shape)
+    pv_c = np.reshape(pv_c, pvalues.shape)
+    return d, pv_c
 
