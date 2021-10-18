@@ -1,7 +1,16 @@
 from GraphMethods import *
 from DeepFeature import *
 import numpy as np
+import statsmodels
 
+
+a = np.reshape(pt_sc, [-1])
+# a = pt_sc
+d, pv_c = statsmodels.stats.multitest.fdrcorrection(pvals=a, alpha=0.1,
+                                                    method='indep', is_sorted=False)
+
+d = np.reshape(d, pt_sc.shape)
+pv_c = np.reshape(pv_c, [20, 20])
 
 # import statsmodels.api as sm
 # from statsmodels.tsa.stattools import grangercausalitytests as gct
@@ -18,11 +27,11 @@ import numpy as np
 # print(f1[1][0]['lrtest'][1])
 
 
-# Channel initialization
-chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
-chs1 = []
-for i in range(20): 
-    chs1.append(i)
+# # Channel initialization
+# chs2 = [0, 1, 2, 6, 7, 12, 13, 14, 15, 16, 17]
+# chs1 = []
+# for i in range(20): 
+#     chs1.append(i)
 
 
 # # Data loading and preprocessing: coherence
@@ -147,7 +156,7 @@ for i in range(20):
 # TTest data extract
 # x, y = get_dataset_cor_multiframe(ds_s0, ds_s1, f=frame)
 # x, y = get_dataset_cor_frame_augmented(ds_s0, ds_s1, f=frame)
-x, y = get_dataset_cor_meanframe(ds_s0, ds_s1)
+# x, y = get_dataset_cor_meanframe(ds_s0, ds_s1)
 # k = pca_cluster(X=x, Y=y, components=2, visualize=True, tit="PCA-2",
 #                 save=True, name="sc_pca2")
 # k = pca_cluster(X=x, Y=y, components=3, visualize=True, tit="PCA-3",
