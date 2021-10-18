@@ -27,11 +27,11 @@ frame = 10
 # ds_s0, ds_s1 = split_count_quality(ds_spectral, id1="0", id2="1")
 
 # # Data loading and preprocessing: mutual information
-chs0 = chs1
-ds, ds_temp, ds_spect = datasets_preparation(frames=frame, order=4, cf1=15,
-                                                    cf2=25, mth="mutual_info")
-# ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
-ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
+# chs0 = chs1
+# ds, ds_temp, ds_spect = datasets_preparation(frames=frame, order=4, cf1=15,
+#                                                     cf2=25, mth="mutual_info")
+# # ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
+# ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
 # Data loading and preprocessing: granger
 # ds, ds_granger, _ = datasets_preparation(frames=frame, order=4, cf1=15,
@@ -43,7 +43,7 @@ ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 # save_list(ds_spectral, "Data/spectral_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_granger, "Data/granger_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_temp, "Data/mitemp_" + str(frame) + "f_[15-25].txt")
-save_list(ds_spect, "Data/mispect_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_spect, "Data/mispect_" + str(frame) + "f_[15-25].txt")
 
 # # Save lists for next time :!
 # save_list(ds_p0, "Data/p0_" + str(frame) + "f_[15-25].txt")
@@ -54,16 +54,16 @@ save_list(ds_spect, "Data/mispect_" + str(frame) + "f_[15-25].txt")
 # # Save lists for next time :D
 # save_list(ds_t0, "Data/t0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_t1, "Data/t1_" + str(frame) + "f_[15-25].txt")
-save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
-save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
 
 
 # save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
 # save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
 
 # ds_granger = load_list("Data/granger_" + str(frame) + "f_[15-25].txt")
-# ds_t0 = load_list("Data/f0_" + str(frame) + "f_[15-25].txt")
-# ds_t1 = load_list("Data/f1_" + str(frame) + "f_[15-25].txt")
+ds_f0 = load_list("Data/f0_" + str(frame) + "f_[15-25].txt")
+ds_f1 = load_list("Data/f1_" + str(frame) + "f_[15-25].txt")
 
 
 # # Load later:
