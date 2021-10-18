@@ -33,7 +33,7 @@ frame = 10
 # # ds_t0, ds_t1 = split_count_quality(ds_temp, id1="0", id2="1")
 # ds_f0, ds_f1 = split_count_quality(ds_spect, id1="0", id2="1")
 
-# Data loading and preprocessing: granger
+# # Data loading and preprocessing: granger
 # ds, ds_granger, _ = datasets_preparation(frames=frame, order=4, cf1=15,
 #                                                     cf2=25, mth="granger", lag=1)
 # ds_g0, ds_g1 = split_count_quality(ds_granger, id1="0", id2="1")
@@ -71,12 +71,20 @@ frame = 10
 # ds_f1 = load_list("Data/f1_" + str(frame) + "f_[15-25].txt")
 # ds_s0 = load_list("Data/s0_" + str(frame) + "f_[15-25].txt")
 # ds_s1 = load_list("Data/s1_" + str(frame) + "f_[15-25].txt")
+ds_g0 = load_list("Data/g0_" + str(frame) + "f_[15-25].txt")
+ds_g1 = load_list("Data/g1_" + str(frame) + "f_[15-25].txt")
 
 # TTest heatmaps (p-values and stats)
-for f in range(1):
-    s, p = visualize_ttest_heatmap(ds_f0, ds_f1, fs=f, ff=(f+1),
+k = 7
+st = 0
+pt_sc = 0
+
+for f in range(k):
+    s, p = visualize_ttest_heatmap(ds_g0, ds_g1, fs=f, ff=(f+1),
                                    mode="MI_Spect10Frame_15_25",
                                    save=False, render=False) 
+    
+    # d, pvc = correction_fdr_test(pvalues=p, alpha=0.01, method='indep', verbose=True)
     try:
         st += s
         pt_sc += p
@@ -84,8 +92,9 @@ for f in range(1):
         st = s
         pt_sc = p
 
-# pt_sc /= frame
-# st /= frame
+pt_sc /= k
+d, pvc = correction_fdr_test(pvalues=pt_sc, alpha=0.05, method='indep',
+                             verbose=True, headers=ds_f0[0].signal_headers)
 
 # for f in range(frame):
 #     s, p = visualize_ttest_heatmap(ds_f0, ds_f1, fs=f, ff=(f+1), mode="MI_Spect6Frame_15_25", save=True) 

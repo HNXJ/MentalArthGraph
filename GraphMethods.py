@@ -1,7 +1,9 @@
 from matplotlib import pyplot as plt
 from scipy import signal, stats
 import statsmodels.api as sm
+
 import numpy as np
+import statsmodels
 import Coherence
 import os
 
@@ -627,13 +629,30 @@ def select_electrodes(table=None, thresh=0.1):
     return edges
 
 
-def correction_fdr_test(pvalues=None, alpha=0.1, method='indep', is_sorted=False):
+def correction_fdr_test(pvalues=None, alpha=0.1, method='indep',
+                        is_sorted=False, verbose=False, headers=None):
     
     a = np.reshape(pvalues, [-1])
     d, pv_c = statsmodels.stats.multitest.fdrcorrection(pvals=a, alpha=alpha,
                                                         method=method, is_sorted=is_sorted)
     
+    m = pvalues.shape[0]
+    n = d.shape[0]
+    
+    for i in range(m):
+        d[i*m+i] = False
+        pv_c[i*m+i] = 1.0
+    
+    if verbose:
+        print(" %d True of %d, Alpha = %f. Significant connections and their modified p-value: " % (np.sum(d), n, alpha))
+        # print(headers)
+        for i in range(n):
+            if d[i]:
+                print(headers[np.int(i/m)]['label'], " - ",
+                      headers[np.int(i%m)]['label'], " p-value = ", pv_c[i])
+        
     d = np.reshape(d, pvalues.shape)
     pv_c = np.reshape(pv_c, pvalues.shape)
+    
     return d, pv_c
 

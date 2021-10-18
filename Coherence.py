@@ -195,9 +195,9 @@ def granger_causality(Temps, signals, method="Temporal", channels=None, Overlap=
                 gc = gct(d, lag, verbose=False)
                 y = 0
                 
-                # for lg in range(lag):
-                if gc[1][0]['lrtest'][1] > 0:
-                    y += gc[1][0]['lrtest'][1]
+                for lg in range(1, lag+1):
+                    if gc[lg][0]['lrtest'][1] > 0:
+                        y += gc[lg][0]['lrtest'][1]
 
                 cor[i][j][l] = y
         
@@ -253,9 +253,13 @@ def graphmap(cor, chs, signal_headers, sensor_locs, mode=None, name="0",
             
             if directed:
                 if transp:
-                    ax.arrow(x[4], y[4], x[5]-x[4], y[5]-y[4], shape='full', lw=0.1, length_includes_head=False, head_width=0.1 + 3*cor[chs[i], chs[j]])
+                    ax.arrow(x[4], y[4], x[5]-x[4], y[5]-y[4], shape='full',
+                             lw=0.1, length_includes_head=True,
+                             head_width=0.1 + 3*cor[chs[i], chs[j]])
                 else:
-                    ax.arrow(x[4], y[4], x[4]-x[5], y[4]-y[5], shape='full', lw=0.1, length_includes_head=False, head_width=0.1 + 3*cor[chs[i], chs[j]])
+                    ax.arrow(x[5], y[5], x[4]-x[5], y[4]-y[5], shape='full',
+                             lw=0.1, length_includes_head=True,
+                             head_width=0.1 + 3*cor[chs[i], chs[j]])
     
     ax.set_title(titl)
     if mode == "save":
