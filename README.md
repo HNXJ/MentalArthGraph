@@ -105,6 +105,7 @@ This method intuitively tests if two series (e.g signals) can predict eachother 
 
 ## Overall results
 
+* ->Important Note: FDR correction has been applied later on results. All statistical tests have passed FDR test and their modified results are in the main paper. 
 * Most results are based on EEG[15-25]Hz 4th order butterworth bandpass filtered signals, Spectral coherence (SC) and Mutual information (MI) on 3s time windows (20 frames)
 * Most significant channels: [F8, P3, O1, F7, T3, T4] based on TTest average test, lowest p-values, FDR correction applied.
 * Most significant edges: [F8-F7,F8-T3,F8-P3,T3-P3,O1-T3,T4-T3]
