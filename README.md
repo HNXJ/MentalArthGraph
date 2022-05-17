@@ -6,7 +6,7 @@ B.sc thesis of Hamed Nejat, EE/Bio-electrics @ SUT (2021)
 
 ## Connectivity
 
-Information in connections: Activities in a brain are correlated to a specific mental task, which uses bunch of neurons for a biological computation that produces electromagnetic signal. In a system like human brain, the similarity between these recorded signals (electromagnetic, chemical, etc...) can give us a good information about functions of brain and later investigations about related diseases. The similarity criterion and variable normalizations finally form a weight matrix that can be transformed into a weighted graph, and if criterion is causal, a directional graph. Due to lower SNR than some other type of signals, we did not apply causal methods (Granger, Phase, etc...) on this dataset.
+Information in connections: Activities in a brain are correlated to a specific mental task, which uses bunch of neurons for a biological computation that produces electromagnetic signal. In a system like human brain, the similarity between these recorded signals (electromagnetic, chemical, etc...) can give us a good information about functions of brain and later investigations about related diseases. The similarity criterion and variable normalizations finally form a weight matrix that can be transformed into a weighted graph, and if criterion is causal, a directional graph. Due to lower SNR than some other type of signals, we did not apply causal methods (Granger, Phase, etc...) on this dataset initially. [UPD: later with Granger methods were applied] 
 
 ### Local connectivity effects
 
