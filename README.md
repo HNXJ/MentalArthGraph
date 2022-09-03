@@ -1,8 +1,13 @@
+
+
 # Mental Arithmetics EEG Coherence Graph
 
 ### Analysis of functional connectivity during mental arithmetics
 
 B.sc thesis of Hamed Nejat, EE/Bio-electrics @ SUT (2021)
+
+Cite at : 
+https://ieeexplore.ieee.org/abstract/document/9750349
 
 ## Connectivity
 
