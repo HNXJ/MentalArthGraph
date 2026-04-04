@@ -62,10 +62,10 @@ def scatter_2d_plot(X=None, Y=None, tit=None, save=False, name=""):
     fig.show()
     if save:
         try:
-            fig.savefig("Plots/" + name + ".png")
+            fig.savefig("plots/" + name + ".png")
         except:
-            os.mkdir("Plots")
-            fig.savefig("Plots/" + name + ".png")
+            os.mkdir("plots")
+            fig.savefig("plots/" + name + ".png")
     return
 
 
@@ -81,9 +81,9 @@ def scatter_3d_plot(X=None, Y=None, tit=None, save=False, name=""):
     fig.show()
     if save:
         try:
-            fig.savefig("Plots/" + name + ".png")
+            fig.savefig("plots/" + name + ".png")
         except:
-            os.mkdir("Plots")
-            fig.savefig("Plots/" + name + ".png")
+            os.mkdir("plots")
+            fig.savefig("plots/" + name + ".png")
     return
 

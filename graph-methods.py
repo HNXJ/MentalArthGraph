@@ -4,7 +4,7 @@ import statsmodels.api as sm
 
 import numpy as np
 import statsmodels
-import Coherence
+import coherence
 import os
 
 
@@ -25,7 +25,7 @@ class subject_eeg_arithmetics:
     
     def set_cor(self, frames, mode, chs, order, cf1, cf2, sr):
         
-        self.cor = cor = Coherence.coherence(frames, self.signals, mode, chs, 
+        self.cor = cor = coherence.coherence(frames, self.signals, mode, chs, 
                                              None, order, cf1, cf2, sr)
         self.cf1 = cf1
         self.cf2 = cf2
@@ -33,7 +33,7 @@ class subject_eeg_arithmetics:
     
     def set_cor_mutual_info(self, frames, mode, chs, order, cf1, cf2, sr):
         
-        self.cor = cor = Coherence.mutual_info(frames, self.signals, mode, chs, 
+        self.cor = cor = coherence.mutual_info(frames, self.signals, mode, chs, 
                                              None, order, cf1, cf2, sr)
         self.cf1 = cf1
         self.cf2 = cf2
@@ -41,7 +41,7 @@ class subject_eeg_arithmetics:
     
     def set_cor_granger_causality(self, frames, mode, chs, order, cf1, cf2, sr, lag):
         
-        self.cor = cor = Coherence.granger_causality(frames, self.signals, mode, chs, 
+        self.cor = cor = coherence.granger_causality(frames, self.signals, mode, chs, 
                                              None, order, cf1, cf2, sr, lag)
         self.cf1 = cf1
         self.cf2 = cf2
@@ -57,7 +57,7 @@ def load_dataset(cnt=35, fname="EEGMA/"):
     
     for q in range(cnt):
 
-        signals, signal_headers, header, fields, rows = Coherence.load_file(q, foldername=fname)                
+        signals, signal_headers, header, fields, rows = coherence.load_file(q, foldername=fname)                
         data.append(subject_eeg_arithmetics(signals, None, rows[q][4],
                                             rows[q][5], signal_headers, 
                                             rows[q][0]))
@@ -114,16 +114,16 @@ def calculate_graph(idb=0, idf=1, frames=30, chs=None, mode="Pearson"):
         except:
             pass
         
-        signals, signal_headers, header, fields, rows = Coherence.load_file(q)                
-        cor = Coherence.coherence(frames, signals, mode, chs1, None, 4, 24, 36, 500)
+        signals, signal_headers, header, fields, rows = coherence.load_file(q)                
+        cor = coherence.coherence(frames, signals, mode, chs1, None, 4, 24, 36, 500)
         title_subj = str(fields[4]) + "_" + str(rows[q][0]) + "_" + str(rows[q][4])
         print("### Calculating graphs, ...")
         
         for k in range(frames):
             
             print("frame no." + str(k) + " ... ")
-            sensor_locs1 = Coherence.get_sensor_locs(mode="EEG")
-            cor[:, :, k] = Coherence.graphmat(cor[:, :, k])
+            sensor_locs1 = coherence.get_sensor_locs(mode="EEG")
+            cor[:, :, k] = coherence.graphmat(cor[:, :, k])
         
         print("ID no." + str(q) + " -> Finished.")
         cors[q-idb, :, :, :] = cor
@@ -145,17 +145,17 @@ def visualize_graph(idb=0, idf=1, frames=30, chs=None, mode="Pearson"):
         except:
             pass
         
-        signals, signal_headers, header, fields, rows = Coherence.load_file(q)                
-        cor = Coherence.coherence(frames, signals, mode, chs1, None, 4, 24, 36, 500)
+        signals, signal_headers, header, fields, rows = coherence.load_file(q)                
+        cor = coherence.coherence(frames, signals, mode, chs1, None, 4, 24, 36, 500)
         title_subj = str(fields[4]) + "_" + str(rows[q][0]) + "_" + str(rows[q][4])
         print("### Calculating graphs, ...")
         
         for k in range(frames):
             
             print("frame no." + str(k) + " ... ")
-            sensor_locs1 = Coherence.get_sensor_locs(mode="EEG")
-            cor_a = Coherence.graphmat(cor[:, :, k])
-            Coherence.graphmap(cor_a, chs, signal_headers,
+            sensor_locs1 = coherence.get_sensor_locs(mode="EEG")
+            cor_a = coherence.graphmat(cor[:, :, k])
+            coherence.graphmap(cor_a, chs, signal_headers,
                                sensor_locs=sensor_locs1,
                                 mode="save", name="f_" + str(k) + "count_" +
                                 str(rows[q][4]),
@@ -190,9 +190,9 @@ def visualize_graph_modified(subject_set, chs=None, mode="Pearson", ql=None,
     for frame in range(subject_set.cor.shape[2]):
         
         print("frame no." + str(frame) + " ... ")
-        sensor_locs1 = Coherence.get_sensor_locs(mode="EEG")
-        cor_a = Coherence.graphmat(subject_set.cor[:, :, frame], mode=mode)
-        Coherence.graphmap(cor_a, chs, subject_set.signal_headers,
+        sensor_locs1 = coherence.get_sensor_locs(mode="EEG")
+        cor_a = coherence.graphmat(subject_set.cor[:, :, frame], mode=mode)
+        coherence.graphmap(cor_a, chs, subject_set.signal_headers,
                             sensor_locs=sensor_locs1,
                             mode="save", name="f_" + str(frame) + "count_" +
                             str(subject_set.subtractions),
@@ -324,7 +324,7 @@ def run_heatmap_visualize(ds, mode=None, split=None, f=0):
         chs1.append(i)
     
     chs0 = chs1
-    Coherence.heatmap(ds[0].cor[:, :, f], chs0, ds[0].signal_headers)
+    coherence.heatmap(ds[0].cor[:, :, f], chs0, ds[0].signal_headers)
     return
 
 
@@ -511,10 +511,10 @@ def visualize_ttest_heatmap(ds1, ds2, fs=0, ff=0 , mode="", save=False, render=T
             pass
     
     if render:
-        Coherence.heatmap(s, chs0, ds1[0].signal_headers,
+        coherence.heatmap(s, chs0, ds1[0].signal_headers,
                           name="Tests/TTest_" + mode + "/stat_fs_" + str(fs) + "_ff_" + str(ff),
                           tit="stat", save=save)
-        Coherence.heatmap(p, chs0, ds2[0].signal_headers,
+        coherence.heatmap(p, chs0, ds2[0].signal_headers,
                           name="Tests/TTest_" + mode + "/pval_fs_" + str(fs) + "_ff_" + str(ff),
                           tit="pval", save=save)
     return s, p

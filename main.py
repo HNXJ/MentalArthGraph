@@ -1,7 +1,14 @@
-from GraphMethods import *
-from DeepFeature import *
-from Clustering import *
-from Action import *
+import importlib as _il, sys as _sys
+_gm  = _il.util.spec_from_file_location("graph_methods", "graph-methods.py")
+_df  = _il.util.spec_from_file_location("deep_feature",  "deep-feature.py")
+graph_methods = _il.util.module_from_spec(_gm); _gm.loader.exec_module(graph_methods)
+deep_feature  = _il.util.module_from_spec(_df); _df.loader.exec_module(deep_feature)
+_sys.modules["graph_methods"] = graph_methods
+_sys.modules["deep_feature"]  = deep_feature
+from graph_methods import *
+from deep_feature import *
+from clustering import *
+from action import *
 
 import numpy as np
 
@@ -39,40 +46,40 @@ frame = 10
 # ds_g0, ds_g1 = split_count_quality(ds_granger, id1="0", id2="1")
 
 # # # Saving before split to two labels
-# save_list(ds_pearson, "Data/pearson_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_spectral, "Data/spectral_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_granger, "Data/granger_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_temp, "Data/mitemp_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_spect, "Data/mispect_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_pearson, "data/pearson_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_spectral, "data/spectral_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_granger, "data/granger_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_temp, "data/mitemp_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_spect, "data/mispect_" + str(frame) + "f_[15-25].txt")
 
 # # Save lists for next time :!
-# save_list(ds_p0, "Data/p0_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_p1, "Data/p1_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_s0, "Data/s0_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_s1, "Data/s1_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_p0, "data/p0_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_p1, "data/p1_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_s0, "data/s0_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_s1, "data/s1_" + str(frame) + "f_[15-25].txt")
 
 # # Save lists for next time :D
-# save_list(ds_t0, "Data/t0_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_t1, "Data/t1_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_f0, "Data/f0_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_t0, "data/t0_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_t1, "data/t1_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_f0, "data/f0_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_f1, "data/f1_" + str(frame) + "f_[15-25].txt")
 
 
-# save_list(ds_g0, "Data/g0_" + str(frame) + "f_[15-25].txt")
-# save_list(ds_g1, "Data/g1_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_g0, "data/g0_" + str(frame) + "f_[15-25].txt")
+# save_list(ds_g1, "data/g1_" + str(frame) + "f_[15-25].txt")
 
-# ds_granger = load_list("Data/granger_" + str(frame) + "f_[15-25].txt")
+# ds_granger = load_list("data/granger_" + str(frame) + "f_[15-25].txt")
 
 # # Load later:
-# ds_spectral = load_list("Data/spectral_90f_[15-25].txt")
+# ds_spectral = load_list("data/spectral_90f_[15-25].txt")
 # frame = 6
 
-# ds_f0 = load_list("Data/f0_" + str(frame) + "f_[15-25].txt")
-# ds_f1 = load_list("Data/f1_" + str(frame) + "f_[15-25].txt")
-# ds_s0 = load_list("Data/s0_" + str(frame) + "f_[15-25].txt")
-# ds_s1 = load_list("Data/s1_" + str(frame) + "f_[15-25].txt")
-ds_g0 = load_list("Data/g0_" + str(frame) + "f_[15-25].txt")
-ds_g1 = load_list("Data/g1_" + str(frame) + "f_[15-25].txt")
+# ds_f0 = load_list("data/f0_" + str(frame) + "f_[15-25].txt")
+# ds_f1 = load_list("data/f1_" + str(frame) + "f_[15-25].txt")
+# ds_s0 = load_list("data/s0_" + str(frame) + "f_[15-25].txt")
+# ds_s1 = load_list("data/s1_" + str(frame) + "f_[15-25].txt")
+ds_g0 = load_list("data/g0_" + str(frame) + "f_[15-25].txt")
+ds_g1 = load_list("data/g1_" + str(frame) + "f_[15-25].txt")
 
 # TTest heatmaps (p-values and stats)
 k = 7
@@ -191,13 +198,13 @@ d, pvc = correction_fdr_test(pvalues=pt_sc, alpha=0.05, method='indep',
 
 
 # Animator
-# make_gif(path="Graphs/Grange1_Bad_count-quality_60_f_bandpass[15_25]Hz/",
-#            fname="Animate/gcb60_15_25.gif", duration=0.23, f=70)
-# make_gif(path="Graphs/Grange1_Good_count-quality_60_f_bandpass[15_25]Hz/",
-#            fname="Animate/gcg60_15_25.gif", duration=0.23, f=70
-# make_gif(path="Graphs/Spectral_Bad_count-quality_90_f_bandpass[15_25]Hz/",
-#           fname="Animate/sb90_15_25.gif", duration=0.23, f=70)
-# make_gif(path="Graphs/Spectral_Good_count-quality_10_f_bandpass[32_38]Hz/",
-#           fname="Animate/sg10_32_38.gif", duration=0.12)
+# make_gif(path="graphs/grange1-bad-count-quality-60-f-bandpass-15-25-hz/",
+#            fname="animate/gcb60_15_25.gif", duration=0.23, f=70)
+# make_gif(path="graphs/grange1-good-count-quality-60-f-bandpass-15-25-hz/",
+#            fname="animate/gcg60_15_25.gif", duration=0.23, f=70)
+# make_gif(path="graphs/spectral-bad-count-quality-90-f-bandpass-15-25-hz/",
+#           fname="animate/sb90_15_25.gif", duration=0.23, f=70)
+# make_gif(path="spectral-good-count-quality-10-f-bandpass-32-38-hz/",
+#           fname="animate/sg10_32_38.gif", duration=0.12)
 
 

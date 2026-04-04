@@ -1,5 +1,12 @@
-from GraphMethods import *
-from DeepFeature import *
+import importlib as _il, sys as _sys
+_gm  = _il.util.spec_from_file_location("graph_methods", "graph-methods.py")
+_df  = _il.util.spec_from_file_location("deep_feature",  "deep-feature.py")
+graph_methods = _il.util.module_from_spec(_gm); _gm.loader.exec_module(graph_methods)
+deep_feature  = _il.util.module_from_spec(_df); _df.loader.exec_module(deep_feature)
+_sys.modules["graph_methods"] = graph_methods
+_sys.modules["deep_feature"]  = deep_feature
+from graph_methods import *
+from deep_feature import *
 import numpy as np
 import statsmodels
 
@@ -63,10 +70,10 @@ pv_c = np.reshape(pv_c, [20, 20])
 # save_list(ds_f1, "Data/f1_" + str(frame) + "f_[15-25].txt")
 
 # # Load later:
-# ds_f0 = load_list("Data/f0_3f_[15-25].txt")
-# ds_f1 = load_list("Data/f1_3f_[15-25].txt")
-# ds_s0 = load_list("Data/s0_3f_[15-25].txt")
-# ds_s1 = load_list("Data/s1_3f_[15-25].txt")
+# ds_f0 = load_list("data/f0_3f_[15-25].txt")
+# ds_f1 = load_list("data/f1_3f_[15-25].txt")
+# ds_s0 = load_list("data/s0_3f_[15-25].txt")
+# ds_s1 = load_list("data/s1_3f_[15-25].txt")
 
 
 
@@ -105,8 +112,8 @@ pv_c = np.reshape(pv_c, [20, 20])
 
 
 ## Animator
-# make_gif(path="Graphs/Spectral_Bad_count-quality_12_f_bandpass[60_120]Hz/",
-#          fname="Animate/sb12_60_120.gif", duration=0.17)
+# make_gif(path="graphs/spectral-bad-count-quality-12-f-bandpass-60-120-hz/",
+#          fname="animate/sb12_60_120.gif", duration=0.17)
 
 
 ## Visualize II
